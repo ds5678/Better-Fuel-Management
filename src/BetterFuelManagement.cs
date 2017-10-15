@@ -80,7 +80,7 @@ namespace BetterFuelManagement
                         break;
 
                     default:
-                        translations[i] = "No fuel contains with remaining capacity\nHelp me translate this!\nVisit https://github.com/WulfMarius/Better-Fuel-Management";
+                        translations[i] = "No containers with remaining capacity available\nHelp me translate this!\nVisit https://github.com/WulfMarius/Better-Fuel-Management";
                         break;
                 }
             }
@@ -125,6 +125,26 @@ namespace BetterFuelManagement
                 }
             }
             Localization.dictionary.Add("GAMEPLAY_DrainingProgress", translations);
+
+            translations = new string[knownLanguages.Length];
+            for (int i = 0; i < knownLanguages.Length; i++)
+            {
+                switch (knownLanguages[i])
+                {
+                    case "English":
+                        translations[i] = "Lost";
+                        break;
+
+                    case "German":
+                        translations[i] = "Verloren";
+                        break;
+
+                    default:
+                        translations[i] = "Lost\nHelp me translate this!\nVisit https://github.com/WulfMarius/Better-Fuel-Management";
+                        break;
+                }
+            }
+            Localization.dictionary.Add("GAMEPLAY_Lost", translations);
         }
     }
 }
