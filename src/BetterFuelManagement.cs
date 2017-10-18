@@ -79,8 +79,12 @@ namespace BetterFuelManagement
                         translations[i] = "Keine Behälter mit verbleibender Kapazität vorhanden";
                         break;
 
+                    case "Russian":
+                        translations[i] = "Отсутствует емкость для топлива";
+                        break;
+
                     default:
-                        translations[i] = "No containers with remaining capacity available\nHelp me translate this!\nVisit https://github.com/WulfMarius/Better-Fuel-Management";
+                        translations[i] = "No containers with remaining capacity available";
                         break;
                 }
             }
@@ -99,8 +103,12 @@ namespace BetterFuelManagement
                         translations[i] = "Entleeren";
                         break;
 
+                    case "Russian":
+                        translations[i] = "Слить";
+                        break;
+
                     default:
-                        translations[i] = "Drain\nHelp me translate this!\nVisit https://github.com/WulfMarius/Better-Fuel-Management";
+                        translations[i] = "Drain";
                         break;
                 }
             }
@@ -119,8 +127,12 @@ namespace BetterFuelManagement
                         translations[i] = "Entleeren...";
                         break;
 
+                    case "Russian":
+                        translations[i] = "Сливает...";
+                        break;
+
                     default:
-                        translations[i] = "Draining...\nHelp me translate this!\nVisit https://github.com/WulfMarius/Better-Fuel-Management";
+                        translations[i] = "Draining...";
                         break;
                 }
             }
@@ -139,8 +151,12 @@ namespace BetterFuelManagement
                         translations[i] = "Verloren";
                         break;
 
+                    case "Russian":
+                        translations[i] = "Разрушено";
+                        break;
+
                     default:
-                        translations[i] = "Lost\nHelp me translate this!\nVisit https://github.com/WulfMarius/Better-Fuel-Management";
+                        translations[i] = "Lost";
                         break;
                 }
             }
