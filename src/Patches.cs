@@ -1,27 +1,11 @@
 ﻿using Harmony;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Reflection.Emit;
 using UnityEngine;
 
 namespace BetterFuelManagement
 {
-    [HarmonyPatch(typeof(Inventory), "DestroyGear")]
-    public class Inventory_DestroyGear
-    {
-        public static bool Prefix(GameObject go)
-        {
-            if (!BetterFuelManagement.IsFuelContainer(go))
-            {
-                return true;
-            }
-
-            if (!BetterFuelManagement.WasCalledFromDeductLiquidFromInventory())
-            {
-                return true;
-            }
-
-            return false;
-        }
-    }
-
     [HarmonyPatch(typeof(Panel_Inventory_Examine), "Enable")]
     public class Panel_Inventory_Examine_Enable
     {
@@ -32,11 +16,14 @@ namespace BetterFuelManagement
                 return;
             }
 
-            if (BetterFuelManagement.IsExaminingKeroseneLamp(__instance))
+            if (BetterFuelManagement.IsFuelItem(__instance.m_GearItem))
             {
                 // repurpose the "Unload" button to "Drain"
                 BetterFuelManagementUtils.SetButtonLocalizationKey(__instance.m_Button_Unload, "GAMEPLAY_Drain");
                 BetterFuelManagementUtils.SetButtonSprite(__instance.m_Button_Unload, "ico_lightSource_lantern");
+
+                Transform lanternTexture = __instance.m_RefuelPanel.transform.Find("FuelDisplay/Lantern_Texture");
+                BetterFuelManagementUtils.SetTexture(lanternTexture, Utils.GetInventoryIconTexture(__instance.m_GearItem));
             }
             else
             {
@@ -51,62 +38,63 @@ namespace BetterFuelManagement
     {
         public static bool Prefix(Panel_Inventory_Examine __instance)
         {
-            if (!BetterFuelManagement.IsExaminingKeroseneLamp(__instance))
+            if (!BetterFuelManagement.IsFuelItem(__instance.m_GearItem))
             {
                 return true;
             }
 
-            if (!BetterFuelManagementUtils.IsSelected(__instance.m_Button_Unload))
+            if (BetterFuelManagementUtils.IsSelected(__instance.m_Button_Unload))
             {
-                return true;
+                BetterFuelManagement.Drain(__instance.m_GearItem);
             }
-
-            KeroseneLampItem keroseneLamp = __instance.m_GearItem.m_KeroseneLampItem;
-            if (keroseneLamp.m_CurrentFuelLiters == 0)
+            else
             {
-                HUDMessage.AddMessage(Localization.Get("GAMEPLAY_Nofuelinlantern"));
-                GameAudioManager.PlayGUIError();
-                return false;
+                BetterFuelManagement.Refuel(__instance.m_GearItem);
             }
-
-            if (BetterFuelManagement.GetRemainingFuelCapacityInInventory() == 0)
-            {
-                HUDMessage.AddMessage(Localization.Get("GAMEPLAY_NoFuelCapacityAvailable"));
-                GameAudioManager.PlayGUIError();
-                return false;
-            }
-
-            GameAudioManager.PlayGuiConfirm();
-            InterfaceManager.m_Panel_GenericProgressBar.Launch(
-                Localization.Get("GAMEPLAY_DrainingProgress"),
-                keroseneLamp.m_RefuelTimeSeconds,
-                0.0f,
-                0.0f,
-                keroseneLamp.m_RefuelAudio,
-                null,
-                false,
-                true,
-                new OnExitDelegate(Panel_Inventory_Examine_OnRefuel.OnDrainFinished));
-
-            // HACK: somehow this is needed to revert the button text to "Refuel", which will be active when draining finishes
-            BetterFuelManagementUtils.SetButtonLocalizationKey(__instance.m_RefuelPanel.GetComponentInChildren<UIButton>(), "GAMEPLAY_Refuel");
 
             return false;
         }
+    }
 
-        private static void OnDrainFinished(bool success, bool playerCancel, float progress)
+    [HarmonyPatch(typeof(Panel_Inventory_Examine), "RefreshRefuelPanel")]
+    public class Panel_Inventory_Examine_RefreshFuelPanel
+    {
+        public static bool Prefix(Panel_Inventory_Examine __instance)
         {
-            Panel_Inventory_Examine panel = InterfaceManager.m_Panel_Inventory_Examine;
-
-            KeroseneLampItem keroseneLamp = panel.m_GearItem.m_KeroseneLampItem;
-            if (keroseneLamp != null)
+            if (!BetterFuelManagement.IsFuelItem(__instance.m_GearItem))
             {
-                float litersToDrain = BetterFuelManagement.GetLitersToDrain(panel) * progress;
-                GameManager.GetPlayerManagerComponent().AddLiquidToInventory(litersToDrain, GearLiquidTypeEnum.Kerosene);
-                keroseneLamp.m_CurrentFuelLiters -= litersToDrain;
+                return true;
             }
 
-            panel.RefreshMainWindow();
+            __instance.m_RefuelPanel.SetActive(false);
+            __instance.m_Button_Refuel.gameObject.SetActive(true);
+
+            float currentLiters = BetterFuelManagement.GetCurrentLiters(__instance.m_GearItem);
+            float capacityLiters = BetterFuelManagement.GetCapacityLiters(__instance.m_GearItem);
+
+            var fuelAvailable = BetterFuelManagement.GetTotalCurrentLiters(__instance.m_GearItem) > BetterFuelManagement.MIN_LITERS;
+            bool canRefuel = !Mathf.Approximately(currentLiters, capacityLiters) && fuelAvailable;
+            __instance.m_Refuel_X.gameObject.SetActive(!canRefuel);
+            __instance.m_Button_Refuel.gameObject.GetComponent<Panel_Inventory_Examine_MenuItem>().SetDisabled(!canRefuel);
+
+            __instance.m_MouseRefuelButton.SetActive(canRefuel);
+            __instance.m_RequiresFuelMessage.SetActive(false);
+
+            __instance.m_LanternFuelAmountLabel.text =
+                Utils.GetLiquidQuantityString(InterfaceManager.m_Panel_OptionsMenu.m_State.m_Units, BetterFuelManagement.GetCurrentLiters(__instance.m_GearItem)) +
+                "/" +
+                Utils.GetLiquidQuantityStringWithUnitsNoOunces(InterfaceManager.m_Panel_OptionsMenu.m_State.m_Units, BetterFuelManagement.GetCapacityLiters(__instance.m_GearItem));
+
+            float totalCurrent = BetterFuelManagement.GetTotalCurrentLiters(__instance.m_GearItem);
+            float totalCapacity = BetterFuelManagement.GetTotalCapacityLiters(__instance.m_GearItem);
+            __instance.m_FuelSupplyAmountLabel.text =
+                Utils.GetLiquidQuantityString(InterfaceManager.m_Panel_OptionsMenu.m_State.m_Units, totalCurrent) +
+                "/" +
+                Utils.GetLiquidQuantityStringWithUnitsNoOunces(InterfaceManager.m_Panel_OptionsMenu.m_State.m_Units, totalCapacity);
+
+            AccessTools.Method(__instance.GetType(), "UpdateCondition")?.Invoke(__instance, null);
+
+            return false;
         }
     }
 
@@ -115,7 +103,7 @@ namespace BetterFuelManagement
     {
         public static void Postfix(Panel_Inventory_Examine __instance)
         {
-            if (!BetterFuelManagement.IsExaminingKeroseneLamp(__instance))
+            if (!BetterFuelManagement.IsFuelItem(__instance.m_GearItem))
             {
                 return;
             }
@@ -129,8 +117,8 @@ namespace BetterFuelManagement
 
             __instance.m_Button_Unload.gameObject.SetActive(true);
 
-            float litersToDrain = BetterFuelManagement.GetLitersToDrain(__instance);
-            __instance.m_Button_Unload.GetComponent<Panel_Inventory_Examine_MenuItem>().SetDisabled(litersToDrain < 0.001f);
+            float litersToDrain = BetterFuelManagement.GetLitersToDrain(__instance.m_GearItem);
+            __instance.m_Button_Unload.GetComponent<Panel_Inventory_Examine_MenuItem>().SetDisabled(litersToDrain < BetterFuelManagement.MIN_LITERS);
         }
     }
 
@@ -139,7 +127,7 @@ namespace BetterFuelManagement
     {
         public static void Prefix(Panel_Inventory_Examine __instance, bool selected)
         {
-            if (!BetterFuelManagement.IsExaminingKeroseneLamp(__instance))
+            if (!BetterFuelManagement.IsFuelItem(__instance.m_GearItem))
             {
                 return;
             }
@@ -156,7 +144,7 @@ namespace BetterFuelManagement
     {
         public static bool Prefix(Panel_Inventory_Examine __instance, bool selected)
         {
-            if (!BetterFuelManagement.IsExaminingKeroseneLamp(__instance))
+            if (!BetterFuelManagement.IsFuelItem(__instance.m_GearItem))
             {
                 return true;
             }
@@ -169,21 +157,6 @@ namespace BetterFuelManagement
             __instance.m_RefuelPanel.SetActive(selected || BetterFuelManagementUtils.IsSelected(__instance.m_Button_Refuel));
 
             return false;
-        }
-    }
-
-    [HarmonyPatch(typeof(PlayerManager), "AddLiquidToInventory")]
-    public class PlayerManager_AddLiquidToInventory
-    {
-        public static void Postfix(PlayerManager __instance, float litersToAdd, GearLiquidTypeEnum liquidType, ref float __result)
-        {
-            if (liquidType == GearLiquidTypeEnum.Kerosene && __result != litersToAdd)
-            {
-                __instance.StartCoroutine(BetterFuelManagementUtils.SendDelayedLostMessage(litersToAdd - __result));
-
-                // just pretend we added everything, so the original method will not generate new containers
-                __result = litersToAdd;
-            }
         }
     }
 
@@ -252,6 +225,22 @@ namespace BetterFuelManagement
             button.gameObject.SetActive(wasActive);
         }
 
+        internal static void SetTexture(Component component, Texture2D texture)
+        {
+            if (!component)
+            {
+                return;
+            }
+
+            UITexture uiTexture = component.GetComponent<UITexture>();
+            if (!uiTexture)
+            {
+                return;
+            }
+
+            uiTexture.mainTexture = texture;
+        }
+
         internal static void SetButtonSprite(UIButton button, string sprite)
         {
             if (button == null)
@@ -260,6 +249,66 @@ namespace BetterFuelManagement
             }
 
             button.normalSprite = sprite;
+        }
+    }
+
+    [HarmonyPatch(typeof(ItemDescriptionPage), "CanExamine")]
+    internal class ItemDescriptionPage_CanExamine
+    {
+        public static bool Prefix(GearItem gi, ref bool __result)
+        {
+            if (BetterFuelManagement.IsFuelItem(gi))
+            {
+                __result = true;
+                return false;
+            }
+
+            return true;
+        }
+    }
+
+    [HarmonyPatch(typeof(PlayerManager), "AddLiquidToInventory")]
+    internal class PlayerManager_AddLiquidToInventory
+    {
+        public static void Postfix(PlayerManager __instance, float litersToAdd, GearLiquidTypeEnum liquidType, ref float __result)
+        {
+            if (liquidType == GearLiquidTypeEnum.Kerosene && __result != litersToAdd)
+            {
+                __instance.StartCoroutine(BetterFuelManagementUtils.SendDelayedLostMessage(litersToAdd - __result));
+
+                // just pretend we added everything, so the original method will not generate new containers
+                __result = litersToAdd;
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(PlayerManager), "DeductLiquidFromInventory")]
+    internal class PlayerManager_DeductLiquidFromInventory
+    {
+        internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            var codes = new List<CodeInstruction>(instructions);
+
+            for (int i = 0; i < codes.Count; i++)
+            {
+                if (codes[i].opcode != OpCodes.Callvirt)
+                {
+                    continue;
+                }
+
+                MethodInfo methodInfo = codes[i].operand as MethodInfo;
+                if (methodInfo == null || methodInfo.Name != "DestroyGear" || methodInfo.DeclaringType != typeof(Inventory))
+                {
+                    continue;
+                }
+
+                codes[i - 3].opcode = OpCodes.Nop;
+                codes[i - 2].opcode = OpCodes.Nop;
+                codes[i - 1].opcode = OpCodes.Nop;
+                codes[i].opcode = OpCodes.Nop;
+            }
+
+            return codes;
         }
     }
 }
