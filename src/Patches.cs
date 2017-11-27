@@ -56,6 +56,21 @@ namespace BetterFuelManagement
         }
     }
 
+    [HarmonyPatch(typeof(Panel_Inventory_Examine), "OnUnload")]
+    public class Panel_Inventory_Examine_OnUnload
+    {
+        public static bool Prefix(Panel_Inventory_Examine __instance)
+        {
+            if (!BetterFuelManagement.IsFuelItem(__instance.m_GearItem))
+            {
+                return true;
+            }
+
+            BetterFuelManagement.Drain(__instance.m_GearItem);
+            return false;
+        }
+    }
+
     [HarmonyPatch(typeof(Panel_Inventory_Examine), "RefreshRefuelPanel")]
     public class Panel_Inventory_Examine_RefreshFuelPanel
     {
@@ -160,6 +175,18 @@ namespace BetterFuelManagement
         }
     }
 
+    [HarmonyPatch(typeof(Panel_Inventory_Examine), "UpdateButtonLegend")]
+    public class Panel_Inventory_Examine_UpdateButtonLegend
+    {
+        public static void Postfix(Panel_Inventory_Examine __instance)
+        {
+            if (BetterFuelManagement.IsFuelItem(__instance.m_GearItem) && BetterFuelManagementUtils.IsSelected(__instance.m_Button_Unload))
+            {
+                __instance.m_ButtonLegendContainer.UpdateButton("Continue", "GAMEPLAY_Drain", true, 1, true);
+            }
+        }
+    }
+
     internal class BetterFuelManagementUtils
     {
         internal static Vector3 GetBottomPosition(params Component[] components)
@@ -225,6 +252,16 @@ namespace BetterFuelManagement
             button.gameObject.SetActive(wasActive);
         }
 
+        internal static void SetButtonSprite(UIButton button, string sprite)
+        {
+            if (button == null)
+            {
+                return;
+            }
+
+            button.normalSprite = sprite;
+        }
+
         internal static void SetTexture(Component component, Texture2D texture)
         {
             if (!component)
@@ -239,16 +276,6 @@ namespace BetterFuelManagement
             }
 
             uiTexture.mainTexture = texture;
-        }
-
-        internal static void SetButtonSprite(UIButton button, string sprite)
-        {
-            if (button == null)
-            {
-                return;
-            }
-
-            button.normalSprite = sprite;
         }
     }
 
