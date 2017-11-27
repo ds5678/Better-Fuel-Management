@@ -13,5 +13,7 @@ You will need to manage your empty fuel containers!
 
 * The fuel in the Storm Lantern can be drained again.
 
+* Transfer fuel between fuel containers.
+
 
 For installation instructions see [Installing-a-Mod](https://github.com/WulfMarius/ModComponent/wiki/Installing-a-Mod)
