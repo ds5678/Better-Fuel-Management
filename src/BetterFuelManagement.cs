@@ -362,7 +362,7 @@ namespace BetterFuelManagement
                         break;
 
                     case "Russian":
-                        translations[i] = "Уже пусто";
+                        translations[i] = "Ёмкость пуста";
                         break;
 
                     default:
@@ -386,7 +386,7 @@ namespace BetterFuelManagement
                         break;
 
                     case "Russian":
-                        translations[i] = "Уже полный";
+                        translations[i] = "Ёмкость заполнена";
                         break;
 
                     default:
