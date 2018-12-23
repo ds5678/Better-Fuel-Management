@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Better-Fuel-Management")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCopyright("© 2018 Wulf Marius")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
