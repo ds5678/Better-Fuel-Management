@@ -31,13 +31,8 @@ namespace BetterFuelManagement
                 return false;
             }
 
-            System.Reflection.FieldInfo m_Selected = AccessTools.Field(menuItem.GetType(), "m_Selected");
-            if (m_Selected == null)
-            {
-                return false;
-            }
-
-            return (bool)m_Selected.GetValue(menuItem);
+            Traverse field = Traverse.Create(menuItem).Field("m_Selected");
+            return field.FieldExists() && field.GetValue<bool>();
         }
 
         internal static System.Collections.IEnumerator SendDelayedLostMessage(float amount)
@@ -103,7 +98,7 @@ namespace BetterFuelManagement
     {
         public static bool Prefix(GearItem gi, ref bool __result)
         {
-            if (BetterFuelManagement.IsFuelItem(gi))
+            if (Implementation.IsFuelItem(gi))
             {
                 __result = true;
                 return false;
@@ -123,7 +118,7 @@ namespace BetterFuelManagement
                 return;
             }
 
-            if (BetterFuelManagement.IsFuelItem(__instance.m_GearItem))
+            if (Implementation.IsFuelItem(__instance.m_GearItem))
             {
                 // repurpose the "Unload" button to "Drain"
                 BetterFuelManagementUtils.SetButtonLocalizationKey(__instance.m_Button_Unload, "GAMEPLAY_Drain");
@@ -145,18 +140,18 @@ namespace BetterFuelManagement
     {
         public static bool Prefix(Panel_Inventory_Examine __instance)
         {
-            if (!BetterFuelManagement.IsFuelItem(__instance.m_GearItem))
+            if (!Implementation.IsFuelItem(__instance.m_GearItem))
             {
                 return true;
             }
 
             if (BetterFuelManagementUtils.IsSelected(__instance.m_Button_Unload))
             {
-                BetterFuelManagement.Drain(__instance.m_GearItem);
+                Implementation.Drain(__instance.m_GearItem);
             }
             else
             {
-                BetterFuelManagement.Refuel(__instance.m_GearItem);
+                Implementation.Refuel(__instance.m_GearItem);
             }
 
             return false;
@@ -168,12 +163,12 @@ namespace BetterFuelManagement
     {
         public static bool Prefix(Panel_Inventory_Examine __instance)
         {
-            if (!BetterFuelManagement.IsFuelItem(__instance.m_GearItem))
+            if (!Implementation.IsFuelItem(__instance.m_GearItem))
             {
                 return true;
             }
 
-            BetterFuelManagement.Drain(__instance.m_GearItem);
+            Implementation.Drain(__instance.m_GearItem);
             return false;
         }
     }
@@ -183,7 +178,7 @@ namespace BetterFuelManagement
     {
         public static bool Prefix(Panel_Inventory_Examine __instance)
         {
-            if (!BetterFuelManagement.IsFuelItem(__instance.m_GearItem))
+            if (!Implementation.IsFuelItem(__instance.m_GearItem))
             {
                 return true;
             }
@@ -191,10 +186,10 @@ namespace BetterFuelManagement
             __instance.m_RefuelPanel.SetActive(false);
             __instance.m_Button_Refuel.gameObject.SetActive(true);
 
-            float currentLiters = BetterFuelManagement.GetCurrentLiters(__instance.m_GearItem);
-            float capacityLiters = BetterFuelManagement.GetCapacityLiters(__instance.m_GearItem);
+            float currentLiters = Implementation.GetCurrentLiters(__instance.m_GearItem);
+            float capacityLiters = Implementation.GetCapacityLiters(__instance.m_GearItem);
 
-            var fuelAvailable = BetterFuelManagement.GetTotalCurrentLiters(__instance.m_GearItem) > BetterFuelManagement.MIN_LITERS;
+            var fuelAvailable = Implementation.GetTotalCurrentLiters(__instance.m_GearItem) > Implementation.MIN_LITERS;
             bool canRefuel = !Mathf.Approximately(currentLiters, capacityLiters) && fuelAvailable;
             __instance.m_Refuel_X.gameObject.SetActive(!canRefuel);
             __instance.m_Button_Refuel.gameObject.GetComponent<Panel_Inventory_Examine_MenuItem>().SetDisabled(!canRefuel);
@@ -203,18 +198,22 @@ namespace BetterFuelManagement
             __instance.m_RequiresFuelMessage.SetActive(false);
 
             __instance.m_LanternFuelAmountLabel.text =
-                Utils.GetLiquidQuantityString(InterfaceManager.m_Panel_OptionsMenu.m_State.m_Units, BetterFuelManagement.GetCurrentLiters(__instance.m_GearItem)) +
+                Utils.GetLiquidQuantityString(InterfaceManager.m_Panel_OptionsMenu.m_State.m_Units, Implementation.GetCurrentLiters(__instance.m_GearItem)) +
                 "/" +
-                Utils.GetLiquidQuantityStringWithUnitsNoOunces(InterfaceManager.m_Panel_OptionsMenu.m_State.m_Units, BetterFuelManagement.GetCapacityLiters(__instance.m_GearItem));
+                Utils.GetLiquidQuantityStringWithUnitsNoOunces(InterfaceManager.m_Panel_OptionsMenu.m_State.m_Units, Implementation.GetCapacityLiters(__instance.m_GearItem));
 
-            float totalCurrent = BetterFuelManagement.GetTotalCurrentLiters(__instance.m_GearItem);
-            float totalCapacity = BetterFuelManagement.GetTotalCapacityLiters(__instance.m_GearItem);
+            float totalCurrent = Implementation.GetTotalCurrentLiters(__instance.m_GearItem);
+            float totalCapacity = Implementation.GetTotalCapacityLiters(__instance.m_GearItem);
             __instance.m_FuelSupplyAmountLabel.text =
                 Utils.GetLiquidQuantityString(InterfaceManager.m_Panel_OptionsMenu.m_State.m_Units, totalCurrent) +
                 "/" +
                 Utils.GetLiquidQuantityStringWithUnitsNoOunces(InterfaceManager.m_Panel_OptionsMenu.m_State.m_Units, totalCapacity);
 
-            AccessTools.Method(__instance.GetType(), "UpdateCondition")?.Invoke(__instance, null);
+            Traverse method = Traverse.Create(__instance).Method("UpdateCondition");
+            if (method.MethodExists())
+            {
+                method.GetValue();
+            }
 
             return false;
         }
@@ -225,7 +224,7 @@ namespace BetterFuelManagement
     {
         public static void Postfix(Panel_Inventory_Examine __instance)
         {
-            if (!BetterFuelManagement.IsFuelItem(__instance.m_GearItem))
+            if (!Implementation.IsFuelItem(__instance.m_GearItem))
             {
                 return;
             }
@@ -239,8 +238,8 @@ namespace BetterFuelManagement
 
             __instance.m_Button_Unload.gameObject.SetActive(true);
 
-            float litersToDrain = BetterFuelManagement.GetLitersToDrain(__instance.m_GearItem);
-            __instance.m_Button_Unload.GetComponent<Panel_Inventory_Examine_MenuItem>().SetDisabled(litersToDrain < BetterFuelManagement.MIN_LITERS);
+            float litersToDrain = Implementation.GetLitersToDrain(__instance.m_GearItem);
+            __instance.m_Button_Unload.GetComponent<Panel_Inventory_Examine_MenuItem>().SetDisabled(litersToDrain < Implementation.MIN_LITERS);
         }
     }
 
@@ -249,7 +248,7 @@ namespace BetterFuelManagement
     {
         public static void Prefix(Panel_Inventory_Examine __instance, bool selected)
         {
-            if (!BetterFuelManagement.IsFuelItem(__instance.m_GearItem))
+            if (!Implementation.IsFuelItem(__instance.m_GearItem))
             {
                 return;
             }
@@ -266,7 +265,7 @@ namespace BetterFuelManagement
     {
         public static bool Prefix(Panel_Inventory_Examine __instance, bool selected)
         {
-            if (!BetterFuelManagement.IsFuelItem(__instance.m_GearItem))
+            if (!Implementation.IsFuelItem(__instance.m_GearItem))
             {
                 return true;
             }
@@ -287,7 +286,7 @@ namespace BetterFuelManagement
     {
         public static void Postfix(Panel_Inventory_Examine __instance)
         {
-            if (BetterFuelManagement.IsFuelItem(__instance.m_GearItem) && BetterFuelManagementUtils.IsSelected(__instance.m_Button_Unload))
+            if (Implementation.IsFuelItem(__instance.m_GearItem) && BetterFuelManagementUtils.IsSelected(__instance.m_Button_Unload))
             {
                 __instance.m_ButtonLegendContainer.UpdateButton("Continue", "GAMEPLAY_Drain", true, 1, true);
             }

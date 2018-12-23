@@ -2,16 +2,17 @@
 
 namespace BetterFuelManagement
 {
-    internal class BetterFuelManagement
+    internal class Implementation
     {
         public const float MIN_LITERS = 0.001f;
 
-        private const float REFUEL_TIME = 3;
+        private const string NAME = "Durable-Whetstone";
         private const string REFUEL_AUDIO = "Play_SndActionRefuelLantern";
+        private const float REFUEL_TIME = 3;
 
         public static void OnLoad()
         {
-            Debug.Log("[Better-Fuel-Management]: Version " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
+            Log("Version " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
 
             AddTranslations();
         }
@@ -139,9 +140,9 @@ namespace BetterFuelManagement
 
         internal static float GetLitersToRefuel(GearItem gearItem)
         {
-            float currentLiters = BetterFuelManagement.GetCurrentLiters(gearItem);
-            float capacityLiters = BetterFuelManagement.GetCapacityLiters(gearItem);
-            float totalCurrent = BetterFuelManagement.GetTotalCurrentLiters(gearItem);
+            float currentLiters = Implementation.GetCurrentLiters(gearItem);
+            float capacityLiters = Implementation.GetCapacityLiters(gearItem);
+            float totalCurrent = Implementation.GetTotalCurrentLiters(gearItem);
 
             return Mathf.Min(capacityLiters - currentLiters, totalCurrent);
         }
@@ -214,6 +215,17 @@ namespace BetterFuelManagement
             return gearItem && gearItem.m_KeroseneLampItem;
         }
 
+        internal static void Log(string message)
+        {
+            Debug.LogFormat("[" + NAME + "] {0}", message);
+        }
+
+        internal static void Log(string message, params object[] parameters)
+        {
+            string preformattedMessage = string.Format("[" + NAME + "] {0}", message);
+            Debug.LogFormat(preformattedMessage, parameters);
+        }
+
         internal static void Refuel(GearItem gearItem)
         {
             Panel_Inventory_Examine panel = InterfaceManager.m_Panel_Inventory_Examine;
@@ -228,7 +240,7 @@ namespace BetterFuelManagement
             }
 
             float totalCurrent = GetTotalCurrentLiters(panel.m_GearItem);
-            if (totalCurrent < BetterFuelManagement.MIN_LITERS)
+            if (totalCurrent < Implementation.MIN_LITERS)
             {
                 GameAudioManager.PlayGUIError();
                 HUDMessage.AddMessage(Localization.Get("GAMEPLAY_NoKeroseneavailable"), false);
@@ -401,11 +413,11 @@ namespace BetterFuelManagement
         {
             Panel_Inventory_Examine panel = InterfaceManager.m_Panel_Inventory_Examine;
 
-            if (BetterFuelManagement.IsFuelItem(panel.m_GearItem))
+            if (Implementation.IsFuelItem(panel.m_GearItem))
             {
-                float litersToDrain = BetterFuelManagement.GetLitersToDrain(panel.m_GearItem) * progress;
-                BetterFuelManagement.AddTotalCurrentLiters(litersToDrain, panel.m_GearItem);
-                BetterFuelManagement.AddLiters(panel.m_GearItem, -litersToDrain);
+                float litersToDrain = Implementation.GetLitersToDrain(panel.m_GearItem) * progress;
+                Implementation.AddTotalCurrentLiters(litersToDrain, panel.m_GearItem);
+                Implementation.AddLiters(panel.m_GearItem, -litersToDrain);
             }
 
             panel.RefreshMainWindow();
@@ -415,11 +427,11 @@ namespace BetterFuelManagement
         {
             Panel_Inventory_Examine panel = InterfaceManager.m_Panel_Inventory_Examine;
 
-            if (BetterFuelManagement.IsFuelItem(panel.m_GearItem))
+            if (Implementation.IsFuelItem(panel.m_GearItem))
             {
-                float litersToTransfer = BetterFuelManagement.GetLitersToRefuel(panel.m_GearItem) * progress;
-                BetterFuelManagement.AddTotalCurrentLiters(-litersToTransfer, panel.m_GearItem);
-                BetterFuelManagement.AddLiters(panel.m_GearItem, litersToTransfer);
+                float litersToTransfer = Implementation.GetLitersToRefuel(panel.m_GearItem) * progress;
+                Implementation.AddTotalCurrentLiters(-litersToTransfer, panel.m_GearItem);
+                Implementation.AddLiters(panel.m_GearItem, litersToTransfer);
             }
 
             panel.RefreshMainWindow();
