@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using MelonLoader;
 
 namespace BetterFuelManagement
 {
-    internal class Implementation
+    internal class Implementation : MelonMod
     {
         public const float MIN_LITERS = 0.001f;
 
@@ -10,9 +11,9 @@ namespace BetterFuelManagement
         private const string REFUEL_AUDIO = "Play_SndActionRefuelLantern";
         private const float REFUEL_TIME = 3;
 
-        public static void OnLoad()
+        public override void OnApplicationStart()
         {
-            Log("Version " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
+            Debug.Log($"[{Info.Name}] Version {Info.Version} loaded!");
 
             AddTranslations();
         }
@@ -217,13 +218,13 @@ namespace BetterFuelManagement
 
         internal static void Log(string message)
         {
-            Debug.LogFormat("[" + NAME + "] {0}", message);
+            Debug.Log("[" + NAME + "] :" + message);
         }
 
         internal static void Log(string message, params object[] parameters)
         {
             string preformattedMessage = string.Format("[" + NAME + "] {0}", message);
-            Debug.LogFormat(preformattedMessage, parameters);
+            Debug.Log(preformattedMessage);
         }
 
         internal static void Refuel(GearItem gearItem)
