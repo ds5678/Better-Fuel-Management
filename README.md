@@ -32,3 +32,21 @@ This is a mod for **The Long Dark** by Hinterland Studio, Inc.
 1. In the Drain menu, make the `Unload` button say `Drain` instead.
 2. Use ModComponent to add some empty fuel containers to the game.
 3. Improve container selection for filling fuel containers?
+
+## Localizations
+
+You can help make Better-Fuel-Management even better! Better-Fuel-Management only has localized text for 5 languages.
+
+It is missing localized text for `French (France)`, `Korean`, `Simplified Chinese`, `Swedish`, `Traditional Chinese`, `Turkish`, `Norwegian`, `Portuguese (Portugal)`, `Portuguese (Brazil)`, `Dutch`, `Finnish`, `Italian`, `Polish`, and `Ukrainian`. If you know any of these languages, you can contribute by translating the six lines below and sending them to me.
+
+"No containers with remaining capacity available"
+
+"Drain"
+
+"Draining..."
+
+"Lost"
+
+"Already empty"
+
+"Already full"
