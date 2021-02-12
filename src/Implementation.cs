@@ -14,8 +14,7 @@ namespace BetterFuelManagement
         public override void OnApplicationStart()
         {
             Debug.Log($"[{Info.Name}] Version {Info.Version} loaded!");
-
-            AddTranslations();
+            BetterFuelSettings.OnLoad();
         }
 
         internal static void AddLiters(GearItem gearItem, float liters)
@@ -95,7 +94,8 @@ namespace BetterFuelManagement
                 null,
                 false,
                 true,
-                new OnExitDelegate(OnDrainFinished));
+                //new OnExitDelegate(OnDrainFinished));
+                new System.Action<bool, bool, float>(OnDrainFinished));
 
             // HACK: somehow this is needed to revert the button text to "Refuel", which will be active when draining finishes
             BetterFuelManagementUtils.SetButtonLocalizationKey(panel.m_RefuelPanel.GetComponentInChildren<UIButton>(), "GAMEPLAY_Refuel");
@@ -218,13 +218,13 @@ namespace BetterFuelManagement
 
         internal static void Log(string message)
         {
-            Debug.Log("[" + NAME + "] :" + message);
+            MelonLogger.Log(message);
         }
 
         internal static void Log(string message, params object[] parameters)
         {
-            string preformattedMessage = string.Format("[" + NAME + "] {0}", message);
-            Debug.Log(preformattedMessage);
+            string preformattedMessage = string.Format(message , parameters);
+            Log(preformattedMessage);
         }
 
         internal static void Refuel(GearItem gearItem)
@@ -258,157 +258,11 @@ namespace BetterFuelManagement
                 null,
                 false,
                 true,
-                new OnExitDelegate(OnRefuelFinished));
+                //new OnExitDelegate(OnRefuelFinished));
+                new System.Action<bool,bool,float>(OnRefuelFinished));
         }
 
-        private static void AddTranslations()
-        {
-            string[] knownLanguages = Localization.knownLanguages;
-
-            string[] translations = new string[knownLanguages.Length];
-            for (int i = 0; i < knownLanguages.Length; i++)
-            {
-                switch (knownLanguages[i])
-                {
-                    case "English":
-                        translations[i] = "No containers with remaining capacity available";
-                        break;
-
-                    case "German":
-                        translations[i] = "Keine Behälter mit verbleibender Kapazität vorhanden";
-                        break;
-
-                    case "Russian":
-                        translations[i] = "Отсутствует емкость для топлива";
-                        break;
-
-                    default:
-                        translations[i] = "No containers with remaining capacity available";
-                        break;
-                }
-            }
-            Localization.dictionary.Add("GAMEPLAY_NoFuelCapacityAvailable", translations);
-
-            translations = new string[knownLanguages.Length];
-            for (int i = 0; i < knownLanguages.Length; i++)
-            {
-                switch (knownLanguages[i])
-                {
-                    case "English":
-                        translations[i] = "Drain";
-                        break;
-
-                    case "German":
-                        translations[i] = "Entleeren";
-                        break;
-
-                    case "Russian":
-                        translations[i] = "Слить";
-                        break;
-
-                    default:
-                        translations[i] = "Drain";
-                        break;
-                }
-            }
-            Localization.dictionary.Add("GAMEPLAY_Drain", translations);
-
-            translations = new string[knownLanguages.Length];
-            for (int i = 0; i < knownLanguages.Length; i++)
-            {
-                switch (knownLanguages[i])
-                {
-                    case "English":
-                        translations[i] = "Draining...";
-                        break;
-
-                    case "German":
-                        translations[i] = "Entleeren...";
-                        break;
-
-                    case "Russian":
-                        translations[i] = "Сливает...";
-                        break;
-
-                    default:
-                        translations[i] = "Draining...";
-                        break;
-                }
-            }
-            Localization.dictionary.Add("GAMEPLAY_DrainingProgress", translations);
-
-            translations = new string[knownLanguages.Length];
-            for (int i = 0; i < knownLanguages.Length; i++)
-            {
-                switch (knownLanguages[i])
-                {
-                    case "English":
-                        translations[i] = "Lost";
-                        break;
-
-                    case "German":
-                        translations[i] = "Verloren";
-                        break;
-
-                    case "Russian":
-                        translations[i] = "Разрушено";
-                        break;
-
-                    default:
-                        translations[i] = "Lost";
-                        break;
-                }
-            }
-            Localization.dictionary.Add("GAMEPLAY_Lost", translations);
-
-            translations = new string[knownLanguages.Length];
-            for (int i = 0; i < knownLanguages.Length; i++)
-            {
-                switch (knownLanguages[i])
-                {
-                    case "English":
-                        translations[i] = "Already empty";
-                        break;
-
-                    case "German":
-                        translations[i] = "Schon leer";
-                        break;
-
-                    case "Russian":
-                        translations[i] = "Ёмкость пуста";
-                        break;
-
-                    default:
-                        translations[i] = "Alredy empty";
-                        break;
-                }
-            }
-            Localization.dictionary.Add("GAMEPLAY_AlreadyEmpty", translations);
-
-            translations = new string[knownLanguages.Length];
-            for (int i = 0; i < knownLanguages.Length; i++)
-            {
-                switch (knownLanguages[i])
-                {
-                    case "English":
-                        translations[i] = "Already full";
-                        break;
-
-                    case "German":
-                        translations[i] = "Schon voll";
-                        break;
-
-                    case "Russian":
-                        translations[i] = "Ёмкость заполнена";
-                        break;
-
-                    default:
-                        translations[i] = "Already full";
-                        break;
-                }
-            }
-            Localization.dictionary.Add("GAMEPLAY_AlreadyFilled", translations);
-        }
+        
 
         private static void OnDrainFinished(bool success, bool playerCancel, float progress)
         {
@@ -436,6 +290,14 @@ namespace BetterFuelManagement
             }
 
             panel.RefreshMainWindow();
+        }
+
+        public static void SetConditionToMax(GearItem gearItem)
+        {
+            if(gearItem.m_CurrentHP != gearItem.m_MaxHP)
+            {
+                gearItem.m_CurrentHP = gearItem.m_MaxHP;
+            }
         }
     }
 }

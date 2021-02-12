@@ -1,9 +1,5 @@
 ﻿using Harmony;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Reflection.Emit;
 using UnityEngine;
-using UnhollowerBaseLib;
 
 namespace BetterFuelManagement
 {
@@ -40,6 +36,11 @@ namespace BetterFuelManagement
         {
             yield return new WaitForSeconds(1f);
 
+            SendLostMessage(amount);
+        }
+
+        internal static void SendLostMessage(float amount)
+        {
             GearMessage.AddMessage(
                 "GEAR_JerrycanRusty",
                 Localization.Get("GAMEPLAY_Lost"),
@@ -94,11 +95,31 @@ namespace BetterFuelManagement
         }
     }
 
+    //Register Localizations after Localization Initialized
+    [HarmonyPatch(typeof(GameManager),"Update")]
+    internal class LoadLocalizations
+    {
+        private static void Postfix()
+        {
+            if (!BetterFuelLocalizations.IsLoaded() && Localization.IsInitialized())
+            {
+                BetterFuelLocalizations.AddLocalizations();
+            }
+        }
+    }
+
     [HarmonyPatch(typeof(ItemDescriptionPage), "CanExamine")]
     internal class ItemDescriptionPage_CanExamine
     {
         public static bool Prefix(GearItem gi, ref bool __result)
         {
+            //Implementation.Log("ItemDescriptionPage - CanExamine");
+
+            if (Implementation.IsFuelContainer(gi))
+            {
+                Implementation.SetConditionToMax(gi);
+            }
+            
             if (Implementation.IsFuelItem(gi))
             {
                 __result = true;
@@ -114,6 +135,7 @@ namespace BetterFuelManagement
     {
         public static void Prefix(Panel_Inventory_Examine __instance, bool enable)
         {
+            //Implementation.Log("Panel_Inventory_Examine - Enable");
             if (!enable)
             {
                 return;
@@ -141,6 +163,8 @@ namespace BetterFuelManagement
     {
         public static bool Prefix(Panel_Inventory_Examine __instance)
         {
+            //Implementation.Log("Panel_Inventory_Examine - OnRefuel");
+            
             if (!Implementation.IsFuelItem(__instance.m_GearItem))
             {
                 return true;
@@ -164,6 +188,8 @@ namespace BetterFuelManagement
     {
         public static bool Prefix(Panel_Inventory_Examine __instance)
         {
+            //Implementation.Log("Panel_Inventory_Examine - OnUnload");
+
             if (!Implementation.IsFuelItem(__instance.m_GearItem))
             {
                 return true;
@@ -179,6 +205,8 @@ namespace BetterFuelManagement
     {
         public static bool Prefix(Panel_Inventory_Examine __instance)
         {
+            //Implementation.Log("Panel_Inventory_Examine - RefreshRefuelPanel");
+
             if (!Implementation.IsFuelItem(__instance.m_GearItem))
             {
                 return true;
@@ -210,11 +238,11 @@ namespace BetterFuelManagement
                 "/" +
                 Utils.GetLiquidQuantityStringWithUnitsNoOunces(InterfaceManager.m_Panel_OptionsMenu.m_State.m_Units, totalCapacity);
 
-            Traverse method = Traverse.Create(__instance).Method("UpdateCondition");
-            if (method.MethodExists())
-            {
-                method.GetValue();
-            }
+            //Traverse method = Traverse.Create(__instance).Method("UpdateCondition");
+            //if (method.MethodExists())
+            //{
+            //    method.GetValue();
+            //}
 
             return false;
         }
@@ -225,6 +253,8 @@ namespace BetterFuelManagement
     {
         public static void Postfix(Panel_Inventory_Examine __instance)
         {
+            //Implementation.Log("Panel_Inventory_Examine - RefreshMainWindow");
+
             if (!Implementation.IsFuelItem(__instance.m_GearItem))
             {
                 return;
@@ -244,11 +274,13 @@ namespace BetterFuelManagement
         }
     }
 
-    [HarmonyPatch(typeof(Panel_Inventory_Examine), "SelectRefuelButton")]
+    [HarmonyPatch(typeof(Panel_Inventory_Examine), "SelectRefuelButton")] //inlined patch
     internal class Panel_Inventory_Examine_SelectRefuelButton
     {
         public static void Prefix(Panel_Inventory_Examine __instance, bool selected)
         {
+            //Implementation.Log("Panel_Inventory_Examine - SelectRefuelButton");
+
             if (!Implementation.IsFuelItem(__instance.m_GearItem))
             {
                 return;
@@ -261,11 +293,13 @@ namespace BetterFuelManagement
         }
     }
 
-    [HarmonyPatch(typeof(Panel_Inventory_Examine), "SelectUnloadButton")]
+    [HarmonyPatch(typeof(Panel_Inventory_Examine), "SelectUnloadButton")] //inlined patch
     internal class Panel_Inventory_Examine_SelectUnloadButton
     {
         public static bool Prefix(Panel_Inventory_Examine __instance, bool selected)
         {
+            //Implementation.Log("Panel_Inventory_Examine - SelectUnloadButton");
+
             if (!Implementation.IsFuelItem(__instance.m_GearItem))
             {
                 return true;
@@ -287,6 +321,8 @@ namespace BetterFuelManagement
     {
         public static void Postfix(Panel_Inventory_Examine __instance)
         {
+            //Implementation.Log("Panel_Inventory_Examine - UpdateButtonLegend");
+
             if (Implementation.IsFuelItem(__instance.m_GearItem) && BetterFuelManagementUtils.IsSelected(__instance.m_Button_Unload))
             {
                 __instance.m_ButtonLegendContainer.UpdateButton("Continue", "GAMEPLAY_Drain", true, 1, true);
@@ -299,9 +335,12 @@ namespace BetterFuelManagement
     {
         public static void Postfix(PlayerManager __instance, float litersToAdd, GearLiquidTypeEnum liquidType, ref float __result)
         {
+            //Implementation.Log("PlayerManager - AddLiquidToInventory");
+
             if (liquidType == GearLiquidTypeEnum.Kerosene && __result != litersToAdd)
             {
-                __instance.StartCoroutine(BetterFuelManagementUtils.SendDelayedLostMessage(litersToAdd - __result));
+                //__instance.StartCoroutine(BetterFuelManagementUtils.SendDelayedLostMessage(litersToAdd - __result));
+                BetterFuelManagementUtils.SendLostMessage(litersToAdd - __result);
 
                 // just pretend we added everything, so the original method will not generate new containers
                 __result = litersToAdd;
@@ -309,33 +348,47 @@ namespace BetterFuelManagement
         }
     }
 
+    
+
+    internal class DeductLiquidMethodTracker
+    {
+        internal static bool isExecuting = false;
+    }
+
     [HarmonyPatch(typeof(PlayerManager), "DeductLiquidFromInventory")]
     internal class PlayerManager_DeductLiquidFromInventory
     {
-        internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        private static void Prefix()
         {
-            var codes = new List<CodeInstruction>(instructions);
-
-            for (int i = 0; i < codes.Count; i++)
-            {
-                if (codes[i].opcode != OpCodes.Callvirt)
-                {
-                    continue;
-                }
-
-                MethodInfo methodInfo = codes[i].operand as MethodInfo;
-                if (methodInfo == null || methodInfo.Name != "DestroyGear" || methodInfo.DeclaringType != typeof(Inventory))
-                {
-                    continue;
-                }
-
-                codes[i - 3].opcode = OpCodes.Nop;
-                codes[i - 2].opcode = OpCodes.Nop;
-                codes[i - 1].opcode = OpCodes.Nop;
-                codes[i].opcode = OpCodes.Nop;
-            }
-
-            return codes;
+            DeductLiquidMethodTracker.isExecuting = true;
+        }
+        private static void Postfix()
+        {
+            DeductLiquidMethodTracker.isExecuting = false;
         }
     }
+
+    [HarmonyPatch(typeof(Inventory),"DestroyGear")]
+    internal class PreventLiquidItemDestruction
+    {
+        private static bool Prefix(GameObject go)
+        {
+            if (DeductLiquidMethodTracker.isExecuting)
+            {
+                Implementation.Log("TLD is trying to destroy {0}", go.name);
+
+                LiquidItem liquidItem = go.GetComponent<LiquidItem>();
+
+                if (liquidItem != null && liquidItem.m_LiquidType == GearLiquidTypeEnum.Kerosene)
+                {
+                    Implementation.Log("Prevented destruction");
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+    }
+
+
 }

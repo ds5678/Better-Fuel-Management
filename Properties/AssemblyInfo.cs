@@ -35,5 +35,5 @@ using MelonLoader;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("4.0.0")]
 [assembly: AssemblyFileVersion("4.0.0")]
-[assembly: MelonInfo(typeof(BetterFuelManagement.Implementation), "BetterFuelManagement", "4.0", "WulfMarius, ds5678")]
+[assembly: MelonInfo(typeof(BetterFuelManagement.Implementation), "BetterFuelManagement", "4.0.0", "WulfMarius, ds5678")]
 [assembly: MelonGame("Hinterland", "TheLongDark")]
