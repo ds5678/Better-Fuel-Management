@@ -16,7 +16,7 @@ This is a mod for **The Long Dark** by Hinterland Studio, Inc.
 
 * A custom radial menu has been added to make placing fuel containers easier. You can change the key or disable the menu in the Mod Settings.
 
-* Clicking on a fuel container in the inventory will restore it to full condition. This does not affect gameplay significantly
+* Clicking on a fuel container in the inventory will restore it to full condition. This does not affect gameplay significantly.
 
 ## Installation
 
@@ -24,7 +24,8 @@ This is a mod for **The Long Dark** by Hinterland Studio, Inc.
 2. Download the latest version of `RadialMenuUtilities.dll` from the [releases page](https://github.com/ds5678/RadialMenuUtilities/releases)
 3. Download the latest version of `KeyboardUtilities.dll` from the [releases page](https://github.com/ds5678/KeyboardUtilities/releases).
 4. Download the latest version of `Better-Fuel-Management.dll` from the [releases page](https://github.com/ds5678/Better-Fuel-Management/releases).
-5. Move `RadialMenuUtilities.dll`, `KeyboardUtilities.dll`, and `Better-Fuel-Management.dll` into the Mods folder in your TLD install directory
+5. Download the latest version of `ModSettings.dll` from the [releases page](https://github.com/zeobviouslyfakeacc/ModSettings/releases).
+6. Move `RadialMenuUtilities.dll`, `KeyboardUtilities.dll`, `ModSettings.dll`, and `Better-Fuel-Management.dll` into the Mods folder in your TLD install directory
 
 ## Future
 
