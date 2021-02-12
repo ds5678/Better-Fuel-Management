@@ -12,6 +12,7 @@ namespace BetterFuelManagement
             ["English"] = "No containers with remaining capacity available",
             ["German"]  = "Keine Behälter mit verbleibender Kapazität vorhanden",
             ["Russian"] = "Отсутствует емкость для топлива",
+            ["Japanese"] = "空きのある容器がありません",
             ["Spanish (Spain)"] = "No hay contenedores disponibles con suficiente capacidad"
         };
 
@@ -21,6 +22,7 @@ namespace BetterFuelManagement
             ["English"] = "Drain",
             ["German"] = "Entleeren",
             ["Russian"] = "Слить",
+            ["Japanese"] = "中身を抜き取る",
             ["Spanish (Spain)"] = "Vaciar"
         };
 
@@ -30,6 +32,7 @@ namespace BetterFuelManagement
             ["English"] = "Draining...",
             ["German"] = "Entleeren...",
             ["Russian"] = "Сливает...",
+            ["Japanese"] = "抜き取っています...",
             ["Spanish (Spain)"] = "Vaciando..."
         };
 
@@ -39,6 +42,7 @@ namespace BetterFuelManagement
             ["English"] = "Lost",
             ["German"] = "Verloren",
             ["Russian"] = "Разрушено",
+            ["Japanese"] = "失われました",
             ["Spanish (Spain)"] = "Perdidos"
         };
 
@@ -48,6 +52,7 @@ namespace BetterFuelManagement
             ["English"] = "Already empty",
             ["German"] = "Schon leer",
             ["Russian"] = "Ёмкость пуста",
+            ["Japanese"] = "既に容器が空です",
             ["Spanish (Spain)"] = "Ya está vacío"
         };
 
@@ -57,6 +62,7 @@ namespace BetterFuelManagement
             ["English"] = "Already full",
             ["German"] = "Schon voll",
             ["Russian"] = "Ёмкость заполнена",
+            ["Japanese"] = "既に容器が一杯です",
             ["Spanish (Spain)"] = "Ya está lleno"
         };
 
