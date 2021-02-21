@@ -55,6 +55,7 @@ namespace BetterFuelManagement
 
         protected override void OnConfirm()
         {
+            base.OnConfirm();
             KeyCode keyCode = (KeyCode)Enum.Parse(typeof(KeyCode), keyCodeAlphabet.ToString());
             BetterFuelSettings.radialMenu.SetValues(keyCode,enableRadial);
         }
@@ -68,6 +69,7 @@ namespace BetterFuelManagement
         public static void OnLoad()
         {
             settings.AddToModSettings("Better Fuel Management");
+            SetFieldVisible(settings.enableRadial);
             KeyCode keyCode = (KeyCode)Enum.Parse(typeof(KeyCode), settings.keyCodeAlphabet.ToString());
             radialMenu = new CustomRadialMenu(keyCode, CustomRadialMenuType.AllOfEach, new string[] { "GEAR_JerrycanRusty", "GEAR_LampFuel", "GEAR_LampFuelFull" }, settings.enableRadial);
         }

@@ -16,7 +16,15 @@ This is a mod for **The Long Dark** by Hinterland Studio, Inc.
 
 * A custom radial menu has been added to make placing fuel containers easier. You can change the key or disable the menu in the Mod Settings.
 
-* Clicking on a fuel container in the inventory will restore it to full condition. This does not affect gameplay significantly.
+* Clicking on a fuel container in the inventory will set it to full condition. This does not affect gameplay significantly, but can make the refilling more impartial.
+
+## Special Thanks
+
+[WulfMarius](https://github.com/WulfMarius) is the original creator of Better Fuel Management. I am very grateful for all the contributions he made to the modding community, and I'm honored to have adopted so many of his mods.
+
+## [Patreon](https://www.patreon.com/ds5678)
+
+I know many people might skip over this, but I hope you don't. You are so special, and I would appreciate your support. Modding takes lots of time, and I have expenses like food, internet, and rent. If you feel that I have improved your playing experience, please consider supporting me on my [Patreon](https://www.patreon.com/ds5678). Your support helps to ensure that I can continue making mods for you at the pace I am :)
 
 ## Installation
 
@@ -29,15 +37,16 @@ This is a mod for **The Long Dark** by Hinterland Studio, Inc.
 
 ## Future
 
-1. In the Drain menu, make the `Unload` button say `Drain` instead.
+1. In the Drain menu, make the `Unload` button say `Drain` instead. This might not be possible.
 2. Use ModComponent to add some empty fuel containers to the game.
-3. Improve container selection for filling fuel containers?
 
 ## Localizations
 
-You can help make Better-Fuel-Management even better! Better-Fuel-Management only has localized text for 5 languages.
+You can help make Better-Fuel-Management even better! Better-Fuel-Management only has localized text for 7 languages.
 
-It is missing localized text for `French (France)`, `Korean`, `Simplified Chinese`, `Swedish`, `Traditional Chinese`, `Turkish`, `Norwegian`, `Portuguese (Portugal)`, `Portuguese (Brazil)`, `Dutch`, `Finnish`, `Italian`, `Polish`, and `Ukrainian`. If you know any of these languages, you can contribute by translating the six lines below and sending them to me.
+It is missing localized text for `Korean`, `Simplified Chinese`, `Traditional Chinese`, `Norwegian`, `Portuguese (Portugal)`, `Portuguese (Brazil)`, `Italian`, `Polish`, and `Ukrainian`. 
+
+If you know any of these languages, you can contribute by translating the six lines below and sending them to me.
 
 "No containers with remaining capacity available"
 
@@ -45,8 +54,20 @@ It is missing localized text for `French (France)`, `Korean`, `Simplified Chines
 
 "Draining..."
 
-"Lost"
+"Lost" (a verb meaning wasted)
 
 "Already empty"
 
 "Already full"
+
+## Contributers
+
+[Xpazeman](https://github.com/Xpazeman) contributed the Spanish localization.
+
+Santana contributed the Japanese localization.
+
+Encinal contributed the French localization.
+
+Oguzhan contributed the Dutch and Turkish localizations.
+
+finnjvl contributed the Swedish and Finnish localizations.
