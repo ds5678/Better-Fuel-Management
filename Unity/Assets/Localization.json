@@ -1,0 +1,86 @@
+﻿{
+    "GAMEPLAY_GasCan" : {
+                            "English" : "Gas Can"
+    },
+    "GAMEPLAY_GasCanDescription" : {
+                            "English" : "An old gas can. Holds kerosene just as well."
+    },
+    "GAMEPLAY_BFM_NoFuelCapacityAvailable" : {
+                            "English" : "No containers with remaining capacity available",
+                            "German" : "Keine Behälter mit verbleibender Kapazität vorhanden",
+                            "Russian" : "Отсутствует емкость для топлива",
+                            "French (France)" : "Tous vos récipients sont déjà pleins",
+                            "Japanese" : "空きのある容器がありません",
+                            "Swedish" : "Inga behållare med tillgängligt utrymme",
+                            "Spanish (Spain)" : "No hay contenedores disponibles con suficiente capacidad",
+                            "Turkish" : "Kalan kapasiteye sahip konteyner yok",
+                            "Dutch" : "Er is geen container in je inventory met genoeg opslag",
+                            "Finnish" : "Ei säiliötä, joissa on jäljellä käytettävää tilaa",
+                            "Polish" : "Brak zbiorników z wymaganą pojemnością"
+    },
+    "GAMEPLAY_BFM_Drain" : {
+                            "English" : "Drain",
+                            "German" : "Entleeren",
+                            "Russian" : "Слить",
+                            "French (France)" : "Vider",
+                            "Japanese" : "中身を抜き取る",
+                            "Swedish" : "Tom",
+                            "Spanish (Spain)" : "Vaciar",
+                            "Turkish" : "Boşaltmak",
+                            "Dutch" : "Leeg afvoeren",
+                            "Finnish" : "Tyhjennä",
+                            "Polish" : "Opróżni"
+    },
+    "GAMEPLAY_BFM_DrainingProgress" : {
+                            "English" : "Draining...",
+                            "German" : "Entleeren...",
+                            "Russian" : "Сливает...",
+                            "French (France)" : "Vidange...",
+                            "Japanese" : "抜き取っています...",
+                            "Swedish" : "Tömning...",
+                            "Spanish (Spain)" : "Vaciando...",
+                            "Turkish" : "Boşaltma...",
+                            "Dutch" : "Aftappen...",
+                            "Finnish" : "Tyhjennetään...",
+                            "Polish" : "Opróznianie..."
+    },
+    "GAMEPLAY_BFM_Lost" : {
+                            "English" : "Lost",
+                            "German" : "Verloren",
+                            "Russian" : "Разрушено",
+                            "French (France)" : "Perdu",
+                            "Japanese" : "失われました",
+                            "Swedish" : "Förlorat",
+                            "Spanish (Spain)" : "Perdidos",
+                            "Turkish" : "Boşa harcandı",
+                            "Dutch" : "Verspild",
+                            "Finnish" : "Menetetty",
+                            "Polish" : "Stracone"
+    },
+    "GAMEPLAY_BFM_AlreadyEmpty" : {
+                            "English" : "Already empty",
+                            "German" : "Schon leer",
+                            "Russian" : "Ёмкость пуста",
+                            "French (France)" : "Déjà vide",
+                            "Japanese" : "既に容器が空です",
+                            "Swedish" : "Det är redan tomt",
+                            "Spanish (Spain)" : "Ya está vacío",
+                            "Turkish" : "Zaten boş",
+                            "Dutch" : "Het is al leeg",
+                            "Finnish" : "On jo tyhjä",
+                            "Polish" : "Zbiornik jest już pusty"
+    },
+    "GAMEPLAY_BFM_AlreadyFilled" : {
+                            "English" : "Already full",
+                            "German" : "Schon voll",
+                            "Russian" : "Ёмкость заполнена",
+                            "French (France)" : "Déjà plein",
+                            "Japanese" : "既に容器が一杯です",
+                            "Swedish" : "Det är redan fullt",
+                            "Spanish (Spain)" : "Ya está lleno",
+                            "Turkish" : "Zaten dolu",
+                            "Dutch" : "Het is al vol",
+                            "Finnish" : "On jo täysi",
+                            "Polish" : "Zbiornik jest już pełny"
+    }
+}

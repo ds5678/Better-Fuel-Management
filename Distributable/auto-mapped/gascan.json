@@ -1,0 +1,28 @@
+{
+    "ModLiquidComponent": {
+                                "DisplayNameLocalizationId" : "GAMEPLAY_GasCan",
+                                "DescriptionLocalizatonId" : "GAMEPLAY_GasCanDescription",
+                                "InventoryActionLocalizationId" : "",
+                                "WeightKG": 0.5,
+                                "DaysToDecay" : 0,
+                                "MaxHP" : 100,
+                                "InitialCondition" : "Perfect",
+                                "InventoryCategory" : "Tool",
+                                "PickUpAudio" : "Play_SndInvJerryCan",
+                                "PutBackAudio" : "Play_SndInvJerryCan",
+                                "StowAudio" : "Play_InventoryStow",
+                                "WornOutAudio" : "",
+                                "InspectOnPickup" : true,
+                                "InspectDistance" : 0.4,
+                                "InspectAngles" : [0, 0, 0],
+                                "InspectOffset" : [0, -0.05, 0],
+                                "InspectScale" :  [0.4, 0.4, 0.4],
+                                "NormalModel" : "",
+                                "InspectModel" : "",
+
+                                "LiquidType" : "Kerosene",
+                                "LiquidCapacityLiters" : 6,
+                                "RandomizedQuantity" : false,
+                                "LiquidLiters" : 0
+                            }
+}

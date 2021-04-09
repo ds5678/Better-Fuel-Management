@@ -7,14 +7,14 @@ namespace BetterFuelManagement
     {
         public const float MIN_LITERS = 0.001f;
 
-        private const string NAME = "Durable-Whetstone";
         private const string REFUEL_AUDIO = "Play_SndActionRefuelLantern";
         private const float REFUEL_TIME = 3;
 
         public override void OnApplicationStart()
         {
             Debug.Log($"[{Info.Name}] Version {Info.Version} loaded!");
-            BetterFuelSettings.OnLoad();
+            Settings.OnLoad();
+            SpawnProbabilities.AddToModComponent();
         }
 
         internal static void AddLiters(GearItem gearItem, float liters)
@@ -70,7 +70,7 @@ namespace BetterFuelManagement
             float currentLiters = GetCurrentLiters(panel.m_GearItem);
             if (currentLiters < MIN_LITERS)
             {
-                HUDMessage.AddMessage(Localization.Get("GAMEPLAY_AlreadyEmpty"));
+                HUDMessage.AddMessage(Localization.Get("GAMEPLAY_BFM_AlreadyEmpty"));
                 GameAudioManager.PlayGUIError();
                 return;
             }
@@ -79,14 +79,14 @@ namespace BetterFuelManagement
             float totalCurrent = GetTotalCurrentLiters(panel.m_GearItem);
             if (Mathf.Approximately(totalCapacity, totalCurrent))
             {
-                HUDMessage.AddMessage(Localization.Get("GAMEPLAY_NoFuelCapacityAvailable"));
+                HUDMessage.AddMessage(Localization.Get("GAMEPLAY_BFM_NoFuelCapacityAvailable"));
                 GameAudioManager.PlayGUIError();
                 return;
             }
 
             GameAudioManager.PlayGuiConfirm();
             InterfaceManager.m_Panel_GenericProgressBar.Launch(
-                Localization.Get("GAMEPLAY_DrainingProgress"),
+                Localization.Get("GAMEPLAY_BFM_DrainingProgress"),
                 REFUEL_TIME,
                 0,
                 0,
@@ -236,7 +236,7 @@ namespace BetterFuelManagement
             if (Mathf.Approximately(currentLiters, capacityLiters))
             {
                 GameAudioManager.PlayGUIError();
-                HUDMessage.AddMessage(Localization.Get("GAMEPLAY_AlreadyFilled"), false);
+                HUDMessage.AddMessage(Localization.Get("GAMEPLAY_BFM_AlreadyFilled"), false);
                 return;
             }
 

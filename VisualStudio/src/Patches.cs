@@ -28,8 +28,9 @@ namespace BetterFuelManagement
                 return false;
             }
 
-            Traverse field = Traverse.Create(menuItem).Field("m_Selected");
-            return field.FieldExists() && field.GetValue<bool>();
+            //Traverse field = Traverse.Create(menuItem).Field("m_Selected");
+            //return field.FieldExists() && field.GetValue<bool>();
+            return menuItem.m_Selected;
         }
 
         internal static System.Collections.IEnumerator SendDelayedLostMessage(float amount)
@@ -43,7 +44,7 @@ namespace BetterFuelManagement
         {
             GearMessage.AddMessage(
                 "GEAR_JerrycanRusty",
-                Localization.Get("GAMEPLAY_Lost"),
+                Localization.Get("GAMEPLAY_BFM_Lost"),
                 " " + Localization.Get("GAMEPLAY_Kerosene") + " (" + Utils.GetLiquidQuantityStringWithUnitsNoOunces(InterfaceManager.m_Panel_OptionsMenu.m_State.m_Units, amount) + ")",
                 Color.red,
                 false);
@@ -96,7 +97,7 @@ namespace BetterFuelManagement
     }
 
     //Register Localizations after Localization Initialized
-    [HarmonyPatch(typeof(GameManager),"Update")]
+    /*[HarmonyPatch(typeof(GameManager),"Update")]
     internal class LoadLocalizations
     {
         private static void Postfix()
@@ -106,7 +107,7 @@ namespace BetterFuelManagement
                 BetterFuelLocalizations.AddLocalizations();
             }
         }
-    }
+    }*/
 
     [HarmonyPatch(typeof(ItemDescriptionPage), "CanExamine")]
     internal class ItemDescriptionPage_CanExamine
@@ -144,7 +145,7 @@ namespace BetterFuelManagement
             if (Implementation.IsFuelItem(__instance.m_GearItem))
             {
                 // repurpose the "Unload" button to "Drain"
-                BetterFuelManagementUtils.SetButtonLocalizationKey(__instance.m_Button_Unload, "GAMEPLAY_Drain");
+                BetterFuelManagementUtils.SetButtonLocalizationKey(__instance.m_Button_Unload, "GAMEPLAY_BFM_Drain");
                 BetterFuelManagementUtils.SetButtonSprite(__instance.m_Button_Unload, "ico_lightSource_lantern");
 
                 Transform lanternTexture = __instance.m_RefuelPanel.transform.Find("FuelDisplay/Lantern_Texture");
@@ -307,7 +308,7 @@ namespace BetterFuelManagement
 
             if (selected)
             {
-                BetterFuelManagementUtils.SetButtonLocalizationKey(__instance.m_RefuelPanel.GetComponentInChildren<UIButton>(), "GAMEPLAY_Drain");
+                BetterFuelManagementUtils.SetButtonLocalizationKey(__instance.m_RefuelPanel.GetComponentInChildren<UIButton>(), "GAMEPLAY_BFM_Drain");
             }
 
             __instance.m_RefuelPanel.SetActive(selected || BetterFuelManagementUtils.IsSelected(__instance.m_Button_Refuel));
@@ -325,7 +326,7 @@ namespace BetterFuelManagement
 
             if (Implementation.IsFuelItem(__instance.m_GearItem) && BetterFuelManagementUtils.IsSelected(__instance.m_Button_Unload))
             {
-                __instance.m_ButtonLegendContainer.UpdateButton("Continue", "GAMEPLAY_Drain", true, 1, true);
+                __instance.m_ButtonLegendContainer.UpdateButton("Continue", "GAMEPLAY_BFM_Drain", true, 1, true);
             }
         }
     }

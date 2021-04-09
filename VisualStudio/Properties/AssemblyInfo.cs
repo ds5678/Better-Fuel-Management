@@ -33,7 +33,7 @@ using MelonLoader;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("4.0.2")]
-[assembly: AssemblyFileVersion("4.0.2")]
-[assembly: MelonInfo(typeof(BetterFuelManagement.Implementation), "BetterFuelManagement", "4.0.2", "WulfMarius, ds5678")]
+[assembly: AssemblyVersion("4.1.0")]
+[assembly: AssemblyFileVersion("4.1.0")]
+[assembly: MelonInfo(typeof(BetterFuelManagement.Implementation), "Better-Fuel-Management", "4.1.0", "WulfMarius, ds5678")]
 [assembly: MelonGame("Hinterland", "TheLongDark")]

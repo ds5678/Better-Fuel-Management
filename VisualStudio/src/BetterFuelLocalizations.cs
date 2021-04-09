@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿/*using System.Collections.Generic;
 
 namespace BetterFuelManagement
 {
@@ -6,7 +6,7 @@ namespace BetterFuelManagement
     {
         private static bool hasBeenLoaded = false;
 
-        private static readonly string locId1 = "GAMEPLAY_NoFuelCapacityAvailable";
+        private static readonly string locId1 = "GAMEPLAY_BFM_NoFuelCapacityAvailable";
         private static readonly Dictionary<string, string> locDict1 = new Dictionary<string, string>
         {
             ["English"] = "No containers with remaining capacity available",
@@ -21,7 +21,7 @@ namespace BetterFuelManagement
             ["Finnish"] = "Ei säiliötä, joissa on jäljellä käytettävää tilaa"
         };
 
-        private static readonly string locId2 = "GAMEPLAY_Drain";
+        private static readonly string locId2 = "GAMEPLAY_BFM_Drain";
         private static readonly Dictionary<string, string> locDict2 = new Dictionary<string, string>
         {
             ["English"] = "Drain",
@@ -36,7 +36,7 @@ namespace BetterFuelManagement
             ["Finnish"] = "Tyhjennä"
         };
 
-        private static readonly string locId3 = "GAMEPLAY_DrainingProgress";
+        private static readonly string locId3 = "GAMEPLAY_BFM_DrainingProgress";
         private static readonly Dictionary<string, string> locDict3 = new Dictionary<string, string>
         {
             ["English"] = "Draining...",
@@ -51,7 +51,7 @@ namespace BetterFuelManagement
             ["Finnish"] = "Tyhjennetään..."
         };
 
-        private static readonly string locId4 = "GAMEPLAY_Lost";
+        private static readonly string locId4 = "GAMEPLAY_BFM_Lost";
         private static readonly Dictionary<string, string> locDict4 = new Dictionary<string, string>
         {
             ["English"] = "Lost",
@@ -66,7 +66,7 @@ namespace BetterFuelManagement
             ["Finnish"] = "Menetetty"
         };
 
-        private static readonly string locId5 = "GAMEPLAY_AlreadyEmpty";
+        private static readonly string locId5 = "GAMEPLAY_BFM_AlreadyEmpty";
         private static readonly Dictionary<string, string> locDict5 = new Dictionary<string, string>
         {
             ["English"] = "Already empty",
@@ -81,7 +81,7 @@ namespace BetterFuelManagement
             ["Finnish"] = "On jo tyhjä"
         };
 
-        private static readonly string locId6 = "GAMEPLAY_AlreadyFilled";
+        private static readonly string locId6 = "GAMEPLAY_BFM_AlreadyFilled";
         private static readonly Dictionary<string, string> locDict6 = new Dictionary<string, string>
         {
             ["English"] = "Already full",
@@ -98,12 +98,12 @@ namespace BetterFuelManagement
 
         internal static void AddLocalizations()
         {
-            LocalizationUtils.LoadLocalization(locId1, locDict1, true);
-            LocalizationUtils.LoadLocalization(locId2, locDict2, true);
-            LocalizationUtils.LoadLocalization(locId3, locDict3, true);
-            LocalizationUtils.LoadLocalization(locId4, locDict4, true);
-            LocalizationUtils.LoadLocalization(locId5, locDict5, true);
-            LocalizationUtils.LoadLocalization(locId6, locDict6, true);
+            AssetLoader.LocalizationManager.LoadLocalization(locId1, locDict1, true);
+            AssetLoader.LocalizationManager.LoadLocalization(locId2, locDict2, true);
+            AssetLoader.LocalizationManager.LoadLocalization(locId3, locDict3, true);
+            AssetLoader.LocalizationManager.LoadLocalization(locId4, locDict4, true);
+            AssetLoader.LocalizationManager.LoadLocalization(locId5, locDict5, true);
+            AssetLoader.LocalizationManager.LoadLocalization(locId6, locDict6, true);
             hasBeenLoaded = true;
         }
 
@@ -112,4 +112,4 @@ namespace BetterFuelManagement
             return hasBeenLoaded;
         }
     }
-}
+}*/

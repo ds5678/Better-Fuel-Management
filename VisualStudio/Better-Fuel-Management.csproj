@@ -45,10 +45,13 @@
     <Reference Include="MelonLoader.ModHandler, Version=0.2.7.4, Culture=neutral, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
-    <Reference Include="ModSettings, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ModComponent, Version=4.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
-    <Reference Include="RadialMenuUtilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ModSettings, Version=1.7.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RadialMenuUtilities, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -66,12 +69,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\BetterFuelSettings.cs" />
+    <Compile Include="src\Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\BetterFuelLocalizations.cs" />
     <Compile Include="src\LocalizationUtils.cs" />
     <Compile Include="src\Implementation.cs" />
     <Compile Include="src\Patches.cs" />
+    <Compile Include="src\SpawnProbabilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.gitignore" />
