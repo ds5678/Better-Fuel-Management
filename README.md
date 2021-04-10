@@ -49,9 +49,9 @@ I know many people might skip over this, but I hope you don't. You are so specia
 
 You can help make Better-Fuel-Management even better! Better-Fuel-Management only has localized text for 7 languages.
 
-It is missing localized text for `Korean`, `Simplified Chinese`, `Traditional Chinese`, `Norwegian`, `Portuguese (Portugal)`, `Portuguese (Brazil)`, `Italian`, `Polish`, and `Ukrainian`. 
+It is missing localized text for `Korean`, `Simplified Chinese`, `Traditional Chinese`, `Norwegian`, `Portuguese (Portugal)`, `Portuguese (Brazil)`, `Italian`, and `Ukrainian`. 
 
-If you know any of these languages, you can contribute by translating the six lines below and sending them to me.
+If you know any of these languages, you can contribute by translating the eight lines below and sending them to me.
 
 "No containers with remaining capacity available"
 
@@ -65,6 +65,10 @@ If you know any of these languages, you can contribute by translating the six li
 
 "Already full"
 
+"Gas Can" (meaning gasolene canister) - this is new and needs localized for all localizations
+
+"An old gas can. Holds kerosene just as well." - this is new and needs localized for all localizations
+
 ## Contributers
 
 [Xpazeman](https://github.com/Xpazeman) contributed the Spanish localization.
@@ -76,3 +80,5 @@ Encinal contributed the French localization.
 Oguzhan contributed the Dutch and Turkish localizations.
 
 finnjvl contributed the Swedish and Finnish localizations.
+
+[ttr](https://github.com/ttr) contributed the Polish localization.
