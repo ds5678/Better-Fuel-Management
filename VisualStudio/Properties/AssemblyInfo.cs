@@ -1,39 +1,20 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿using MelonLoader;
+using System.Reflection;
 using System.Runtime.InteropServices;
-using MelonLoader;
+using BuildInfo = BetterFuelManagement.BuildInfo;
 
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-[assembly: AssemblyTitle("Better-Fuel-Management")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Better-Fuel-Management")]
-[assembly: AssemblyCopyright("© 2021 Wulf Marius and ds5678")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-
-// Setting ComVisible to false makes the types in this assembly not visible 
-// to COM components.  If you need to access a type in this assembly from 
-// COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("0e2e0e91-5442-4be8-aa92-c0d9d0af7e02")]
 
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Build and Revision Numbers 
-// by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("4.1.0")]
-[assembly: AssemblyFileVersion("4.1.0")]
-[assembly: MelonInfo(typeof(BetterFuelManagement.Implementation), "Better-Fuel-Management", "4.1.0", "WulfMarius, ds5678")]
+[assembly: AssemblyTitle(BuildInfo.Name)]
+[assembly: AssemblyDescription(BuildInfo.Description)]
+[assembly: AssemblyCompany(BuildInfo.Company)]
+[assembly: AssemblyProduct(BuildInfo.Name)]
+[assembly: AssemblyCopyright("Created by " + BuildInfo.Author)]
+[assembly: AssemblyTrademark(BuildInfo.Company)]
+[assembly: AssemblyCulture("")]
+
+[assembly: AssemblyVersion(BuildInfo.Version)]
+[assembly: AssemblyFileVersion(BuildInfo.Version)]
+[assembly: MelonInfo(typeof(BetterFuelManagement.Implementation), BuildInfo.Name, BuildInfo.Version, BuildInfo.Author, BuildInfo.DownloadLink)]
 [assembly: MelonGame("Hinterland", "TheLongDark")]

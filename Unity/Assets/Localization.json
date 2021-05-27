@@ -1,9 +1,13 @@
 ﻿{
     "GAMEPLAY_GasCan" : {
-                            "English" : "Gas Can"
+                            "English" : "Gas Can",
+                            "French (France)" : "Bidon d'essence",
+                            "Polish" : "Kanister"
     },
     "GAMEPLAY_GasCanDescription" : {
-                            "English" : "An old gas can. Holds kerosene just as well."
+                            "English" : "An old gas can. Holds kerosene just as well.",
+                            "French (France)" : "Un vieux bidon d'essence. Peut tout aussi bien servir à stocker du kérosène.",
+                            "Polish" : "Stary kanister. Odpowiedni do przechowywania paliwa."
     },
     "GAMEPLAY_BFM_NoFuelCapacityAvailable" : {
                             "English" : "No containers with remaining capacity available",

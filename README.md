@@ -29,21 +29,15 @@ I know many people might skip over this, but I hope you don't. You are so specia
 ## Installation
 
 1. If you haven't done so already, install MelonLoader by downloading and running [MelonLoader.Installer.exe](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe)
-2. Download the latest version of `RadialMenuUtilities.dll` from the [releases page](https://github.com/ds5678/RadialMenuUtilities/releases)
+2. Download the latest version of `RadialMenuUtilities.dll` from the [releases page](https://github.com/ds5678/RadialMenuUtilities/releases).
 3. Download the latest version of `KeyboardUtilities.dll` from the [releases page](https://github.com/ds5678/KeyboardUtilities/releases).
 4. Download the latest version of `ModSettings.dll` from the [releases page](https://github.com/zeobviouslyfakeacc/ModSettings/releases).
-5. Download the latest version of `ModComponent.dll` from its [releases page](https://github.com/ds5678/ModComponent/releases)
-6. Download the latest version of `AssetLoader.dll` from its [releases page](https://github.com/ds5678/AssetLoader/releases)
-7. Move `RadialMenuUtilities.dll`, `KeyboardUtilities.dll`, `ModSettings.dll`, `ModComponent.dll`, and `AssetLoader.dll` into the Mods folder in your TLD install directory.
-8. Run The Long Dark once. It should generate a subfolder in your mods folder.
-9. Download `Better-Fuel-Management.dll` and `Better-Fuel-Management.modcomponent` from the [releases page](https://github.com/ds5678/Better-Fuel-Management/releases)
-10. Move `Better-Fuel-Management.dll` into your mods folder.
-11. Move `Better-Fuel-Management.modcomponent` into the `ModComponentZips` folder within your mods folder.
-
-## Future
-
-1. In the Drain menu, make the `Unload` button say `Drain` instead. This might not be possible.
-2. Use ModComponent to add some empty fuel containers to the game.
+5. Download the latest version of `ModComponent.dll` from the [releases page](https://github.com/ds5678/ModComponent/releases).
+6. Move `RadialMenuUtilities.dll`, `KeyboardUtilities.dll`, `ModSettings.dll`, and `ModComponent.dll` into the Mods folder in your TLD install directory.
+7. Run The Long Dark once. It should generate a subfolder called `ModComponentZips` in your mods folder.
+8. Download `Better-Fuel-Management.dll` and `Better-Fuel-Management.modcomponent` from the [releases page](https://github.com/ds5678/Better-Fuel-Management/releases)
+9. Move `Better-Fuel-Management.dll` into your mods folder.
+10. Move `Better-Fuel-Management.modcomponent` into the `ModComponentZips` folder within your mods folder.
 
 ## Localizations
 
@@ -81,4 +75,4 @@ Oguzhan contributed the Dutch and Turkish localizations.
 
 finnjvl contributed the Swedish and Finnish localizations.
 
-[ttr](https://github.com/ttr) contributed the Polish localization.
+[ttr](https://github.com/ttr) and Sovereign contributed the Polish localization.
