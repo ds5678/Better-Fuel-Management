@@ -1,7 +1,8 @@
 bin
 obj
-Better-Fuel-Management.csproj.user
+*.csproj.user
 .vs
 Library
 Logs
 Temp
+AssetBundles

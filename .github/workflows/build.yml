@@ -1,0 +1,30 @@
+name: Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+        
+    - name: List Files
+      shell: bash
+      run: |
+        echo Listing root files...
+        ls ./
+        echo Listing Distributable files...
+        ls ./Distributable
+        echo Listing Distributable files recursively...
+        ls -R ./Distributable
+    - name: Upload Files
+      uses: actions/upload-artifact@v2
+      with:
+        name: ModComponentFiles
+        path: ./Distributable/*
+        if-no-files-found: error

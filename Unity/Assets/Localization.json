@@ -1,11 +1,13 @@
 ﻿{
     "GAMEPLAY_GasCan" : {
                             "English" : "Gas Can",
+                            "Russian" : "Канистра",
                             "French (France)" : "Bidon d'essence",
                             "Polish" : "Kanister"
     },
     "GAMEPLAY_GasCanDescription" : {
                             "English" : "An old gas can. Holds kerosene just as well.",
+                            "Russian" : "Старая большая канистра. Вмещает много топлива.",
                             "French (France)" : "Un vieux bidon d'essence. Peut tout aussi bien servir à stocker du kérosène.",
                             "Polish" : "Stary kanister. Odpowiedni do przechowywania paliwa."
     },
@@ -64,7 +66,7 @@
     "GAMEPLAY_BFM_AlreadyEmpty" : {
                             "English" : "Already empty",
                             "German" : "Schon leer",
-                            "Russian" : "Ёмкость пуста",
+                            "Russian" : "Емкость пуста",
                             "French (France)" : "Déjà vide",
                             "Japanese" : "既に容器が空です",
                             "Swedish" : "Det är redan tomt",
@@ -77,7 +79,7 @@
     "GAMEPLAY_BFM_AlreadyFilled" : {
                             "English" : "Already full",
                             "German" : "Schon voll",
-                            "Russian" : "Ёмкость заполнена",
+                            "Russian" : "Емкость заполнена",
                             "French (France)" : "Déjà plein",
                             "Japanese" : "既に容器が一杯です",
                             "Swedish" : "Det är redan fullt",
