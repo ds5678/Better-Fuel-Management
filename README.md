@@ -71,6 +71,8 @@ Santana contributed the Japanese localization.
 
 Encinal contributed the French localization.
 
+Fanerkin contributed to the Russian localization.
+
 Oguzhan contributed the Dutch and Turkish localizations.
 
 finnjvl contributed the Swedish and Finnish localizations.
