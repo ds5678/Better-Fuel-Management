@@ -64,7 +64,7 @@ namespace BetterFuelManagement
 
 		internal static void SetUnloadButtonLabel(Panel_Inventory_Examine panel, string localizationKey)
 		{
-			GameObject unloadPanel = ModComponentUtils.ModUtils.GetChild(panel?.m_ExamineWidget?.gameObject, "UnloadRiflePanel");
+			GameObject unloadPanel = ModComponent.Utils.ModUtils.GetChild(panel?.m_ExamineWidget?.gameObject, "UnloadRiflePanel");
 			SetButtonLocalizationKey(unloadPanel, localizationKey);
 		}
 	}

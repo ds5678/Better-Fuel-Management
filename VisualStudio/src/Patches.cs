@@ -30,7 +30,7 @@ namespace BetterFuelManagement
 		}
 	}
 
-	[HarmonyPatch(typeof(Panel_Inventory_Examine), "Enable")]
+	[HarmonyPatch(typeof(Panel_Inventory_Examine), "Enable", new System.Type[] { typeof(bool), typeof(ComingFromScreenCategory) })]
 	internal class Panel_Inventory_Examine_Enable
 	{
 		private static void Prefix(Panel_Inventory_Examine __instance, bool enable)
