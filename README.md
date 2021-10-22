@@ -28,16 +28,12 @@ I know many people might skip over this, but I hope you don't. You are so specia
 
 ## Installation
 
-1. If you haven't done so already, install MelonLoader by downloading and running [MelonLoader.Installer.exe](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe)
-2. Download the latest version of `RadialMenuUtilities.dll` from the [releases page](https://github.com/ds5678/RadialMenuUtilities/releases).
-3. Download the latest version of `KeyboardUtilities.dll` from the [releases page](https://github.com/ds5678/KeyboardUtilities/releases).
-4. Download the latest version of `ModSettings.dll` from the [releases page](https://github.com/zeobviouslyfakeacc/ModSettings/releases).
-5. Download the latest version of `ModComponent.dll` from the [releases page](https://github.com/ds5678/ModComponent/releases).
-6. Move `RadialMenuUtilities.dll`, `KeyboardUtilities.dll`, `ModSettings.dll`, and `ModComponent.dll` into the Mods folder in your TLD install directory.
-7. Run The Long Dark once. It should generate a subfolder called `ModComponentZips` in your mods folder.
-8. Download `Better-Fuel-Management.dll` and `Better-Fuel-Management.modcomponent` from the [releases page](https://github.com/ds5678/Better-Fuel-Management/releases)
-9. Move `Better-Fuel-Management.dll` into your mods folder.
-10. Move `Better-Fuel-Management.modcomponent` into the `ModComponentZips` folder within your mods folder.
+* If you haven't done so already, install MelonLoader by downloading and running [MelonLoader.Installer.exe](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe)
+* Install the latest version of [ModComponent](https://github.com/ds5678/ModComponent) and its dependencies.
+* Install the latest version of [RadialMenuUtilities](https://github.com/ds5678/RadialMenuUtilities).
+* Install the latest version of [KeyboardUtilities.dll](https://github.com/ds5678/KeyboardUtilities).
+* Download `Better-Fuel-Management.dll` and `Better-Fuel-Management.modcomponent` from the [releases page](https://github.com/ds5678/Better-Fuel-Management/releases)
+* Move `Better-Fuel-Management.dll` and `Better-Fuel-Management.modcomponent` into your mods folder.
 
 ## Localizations
 
