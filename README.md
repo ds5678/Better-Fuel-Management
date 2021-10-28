@@ -37,27 +37,11 @@ I know many people might skip over this, but I hope you don't. You are so specia
 
 ## Localizations
 
-You can help make Better-Fuel-Management even better! Better-Fuel-Management only has localized text for 7 languages.
-
-It is missing localized text for `Korean`, `Simplified Chinese`, `Traditional Chinese`, `Norwegian`, `Portuguese (Portugal)`, `Portuguese (Brazil)`, `Italian`, and `Ukrainian`. 
-
-If you know any of these languages, you can contribute by translating the eight lines below and sending them to me.
-
-"No containers with remaining capacity available"
-
-"Drain"
-
-"Draining..."
-
-"Lost" (a verb meaning wasted)
-
-"Already empty"
-
-"Already full"
-
-"Gas Can" (meaning gasolene canister) - this is new and needs localized for all localizations
-
-"An old gas can. Holds kerosene just as well." - this is new and needs localized for all localizations
+You can help make Better-Fuel-Management even better! Better-Fuel-Management has localized text that can be translated into other languages. You can find a list of compatible languages [here](https://github.com/ds5678/ModComponent/blob/master/docs/Localizations.md) and the localized text file [here](https://github.com/ds5678/Better-Fuel-Management/blob/master/Unity/Assets/Localization.json). You can contribute your translations by doing the following:
+* Make a Github account
+* [Fork](https://docs.github.com/en/github/collaborating-with-pull-requests/working-with-forks/about-forks) this project
+* Edit the localization file on your fork
+* Make a [pull request](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) to this repository
 
 ## Contributers
 
