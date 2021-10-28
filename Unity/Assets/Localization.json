@@ -1,15 +1,20 @@
-﻿{
+{
     "GAMEPLAY_GasCan" : {
                             "English" : "Gas Can",
                             "Russian" : "Канистра",
                             "French (France)" : "Bidon d'essence",
-                            "Polish" : "Kanister"
+                            "Polish" : "Kanister",
+                            "Traditional Chinese" : "汽油罐",
+                            "Simplified Chinese" : "汽油罐"
     },
     "GAMEPLAY_GasCanDescription" : {
                             "English" : "An old gas can. Holds kerosene just as well.",
                             "Russian" : "Старая большая канистра. Вмещает много топлива.",
                             "French (France)" : "Un vieux bidon d'essence. Peut tout aussi bien servir à stocker du kérosène.",
-                            "Polish" : "Stary kanister. Odpowiedni do przechowywania paliwa."
+                            "Polish" : "Stary kanister. Odpowiedni do przechowywania paliwa.",
+                            "Traditional Chinese" : "一個老舊的汽油罐，也可拿來裝燃油。",
+                            "Simplified Chinese" : "一个老旧的汽油罐，也可拿来装燃油。"
+              
     },
     "GAMEPLAY_BFM_NoFuelCapacityAvailable" : {
                             "English" : "No containers with remaining capacity available",
@@ -22,7 +27,9 @@
                             "Turkish" : "Kalan kapasiteye sahip konteyner yok",
                             "Dutch" : "Er is geen container in je inventory met genoeg opslag",
                             "Finnish" : "Ei säiliötä, joissa on jäljellä käytettävää tilaa",
-                            "Polish" : "Brak zbiorników z wymaganą pojemnością"
+                            "Polish" : "Brak zbiorników z wymaganą pojemnością",
+                            "Traditional Chinese" : "沒有未裝滿的容器可用",
+                            "Simplified Chinese" : "没有未装满的容器可用"
     },
     "GAMEPLAY_BFM_Drain" : {
                             "English" : "Drain",
@@ -35,7 +42,9 @@
                             "Turkish" : "Boşaltmak",
                             "Dutch" : "Leeg afvoeren",
                             "Finnish" : "Tyhjennä",
-                            "Polish" : "Opróżni"
+                            "Polish" : "Opróżni",
+                            "Traditional Chinese" : "倒出",
+                            "Simplified Chinese" : "倒出"
     },
     "GAMEPLAY_BFM_DrainingProgress" : {
                             "English" : "Draining...",
@@ -48,7 +57,9 @@
                             "Turkish" : "Boşaltma...",
                             "Dutch" : "Aftappen...",
                             "Finnish" : "Tyhjennetään...",
-                            "Polish" : "Opróznianie..."
+                            "Polish" : "Opróznianie...",
+                            "Traditional Chinese" : "倒出中...",
+                            "Simplified Chinese" : "倒出中..."
     },
     "GAMEPLAY_BFM_Lost" : {
                             "English" : "Lost",
@@ -61,7 +72,9 @@
                             "Turkish" : "Boşa harcandı",
                             "Dutch" : "Verspild",
                             "Finnish" : "Menetetty",
-                            "Polish" : "Stracone"
+                            "Polish" : "Stracone",
+                            "Traditional Chinese" : "已流失",
+                            "Simplified Chinese" : "已流失"
     },
     "GAMEPLAY_BFM_AlreadyEmpty" : {
                             "English" : "Already empty",
@@ -74,7 +87,9 @@
                             "Turkish" : "Zaten boş",
                             "Dutch" : "Het is al leeg",
                             "Finnish" : "On jo tyhjä",
-                            "Polish" : "Zbiornik jest już pusty"
+                            "Polish" : "Zbiornik jest już pusty",
+                            "Traditional Chinese" : "已清空",
+                            "Simplified Chinese" : "已清空"
     },
     "GAMEPLAY_BFM_AlreadyFilled" : {
                             "English" : "Already full",
@@ -87,6 +102,8 @@
                             "Turkish" : "Zaten dolu",
                             "Dutch" : "Het is al vol",
                             "Finnish" : "On jo täysi",
-                            "Polish" : "Zbiornik jest już pełny"
+                            "Polish" : "Zbiornik jest już pełny",
+                            "Traditional Chinese" : "已裝滿",
+                            "Simplified Chinese" : "已装滿"
     }
 }
