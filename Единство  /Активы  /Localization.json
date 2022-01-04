@@ -5,6 +5,7 @@
                             "French (France)" : "Bidon d'essence",
                             "Japanese" : "ガソリン缶",
                             "Polish" : "Kanister",
+                            "Ukrainian" : "Каністра",
                             "Traditional Chinese" : "汽油罐",
                             "Simplified Chinese" : "汽油罐"
     },
@@ -14,6 +15,7 @@
                             "French (France)" : "Un vieux bidon d'essence. Peut tout aussi bien servir à stocker du kérosène.",
                             "Japanese" : "古いガソリン携行缶。石油を入れるのに適している。",
                             "Polish" : "Stary kanister. Odpowiedni do przechowywania paliwa.",
+                            "Ukrainian" : "Стара каністра для пального. Води з неї не вип'єш.",
                             "Traditional Chinese" : "一個老舊的汽油罐，也可拿來裝燃油。",
                             "Simplified Chinese" : "一个老旧的汽油罐，也可拿来装燃油。"
               
@@ -30,6 +32,7 @@
                             "Dutch" : "Er is geen container in je inventory met genoeg opslag",
                             "Finnish" : "Ei säiliötä, joissa on jäljellä käytettävää tilaa",
                             "Polish" : "Brak zbiorników z wymaganą pojemnością",
+                            "Ukrainian" : "Відсутня ємність для пального.",
                             "Traditional Chinese" : "沒有未裝滿的容器可用",
                             "Simplified Chinese" : "没有未装满的容器可用"
     },
@@ -45,6 +48,7 @@
                             "Dutch" : "Leeg afvoeren",
                             "Finnish" : "Tyhjennä",
                             "Polish" : "Opróżni",
+                            "Ukrainian" : "Злити",
                             "Traditional Chinese" : "倒出",
                             "Simplified Chinese" : "倒出"
     },
@@ -60,6 +64,7 @@
                             "Dutch" : "Aftappen...",
                             "Finnish" : "Tyhjennetään...",
                             "Polish" : "Opróznianie...",
+                            "Ukrainian" : "Виливає...",
                             "Traditional Chinese" : "倒出中...",
                             "Simplified Chinese" : "倒出中..."
     },
@@ -75,6 +80,7 @@
                             "Dutch" : "Verspild",
                             "Finnish" : "Menetetty",
                             "Polish" : "Stracone",
+                            "Ukrainian" : "Втрачено",
                             "Traditional Chinese" : "已流失",
                             "Simplified Chinese" : "已流失"
     },
@@ -90,6 +96,7 @@
                             "Dutch" : "Het is al leeg",
                             "Finnish" : "On jo tyhjä",
                             "Polish" : "Zbiornik jest już pusty",
+                            "Ukrainian" : "Ємність порожня",
                             "Traditional Chinese" : "已清空",
                             "Simplified Chinese" : "已清空"
     },
@@ -105,6 +112,7 @@
                             "Dutch" : "Het is al vol",
                             "Finnish" : "On jo täysi",
                             "Polish" : "Zbiornik jest już pełny",
+                            "Ukrainian" : "Ємність повна",
                             "Traditional Chinese" : "已裝滿",
                             "Simplified Chinese" : "已装滿"
     }
