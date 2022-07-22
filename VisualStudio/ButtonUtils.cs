@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿extern alias Hinterland;
+using Hinterland;
+using UnityEngine;
 
 namespace BetterFuelManagement
 {
@@ -29,35 +31,43 @@ namespace BetterFuelManagement
 
 		internal static void SetButtonLocalizationKey(UIButton button, string key) => SetButtonLocalizationKey(button?.gameObject, key);
 
-		internal static void SetButtonLocalizationKey(GameObject gameObject, string key)
+		internal static void SetButtonLocalizationKey(GameObject? gameObject, string key)
 		{
-			if (gameObject is null) return;
-
-			bool wasActive = gameObject.activeSelf;
-			gameObject.SetActive(false);
-
-			UILocalize localize = gameObject.GetComponentInChildren<UILocalize>();
-			if (localize != null)
+			if (gameObject is not null)
 			{
-				localize.key = key;
-			}
+				bool wasActive = gameObject.activeSelf;
+				gameObject.SetActive(false);
 
-			gameObject.SetActive(wasActive);
+				UILocalize localize = gameObject.GetComponentInChildren<UILocalize>();
+				if (localize != null)
+				{
+					localize.key = key;
+				}
+
+				gameObject.SetActive(wasActive);
+			}
 		}
 
 		internal static void SetButtonSprite(UIButton button, string sprite)
 		{
-			if (button is null) return;
-
-			button.normalSprite = sprite;
+			if (button is not null)
+			{
+				button.normalSprite = sprite;
+			}
 		}
 
 		internal static void SetTexture(Component component, Texture2D texture)
 		{
-			if (component is null || texture is null) return;
+			if (component is null || texture is null)
+			{
+				return;
+			}
 
-			UITexture uiTexture = component.GetComponent<UITexture>();
-			if (uiTexture is null) return;
+			UITexture? uiTexture = component.GetComponent<UITexture>();
+			if (uiTexture is null)
+			{
+				return;
+			}
 
 			uiTexture.mainTexture = texture;
 		}

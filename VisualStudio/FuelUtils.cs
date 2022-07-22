@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿extern alias Hinterland;
+using Hinterland;
+using UnityEngine;
 
 namespace BetterFuelManagement
 {
@@ -160,8 +162,11 @@ namespace BetterFuelManagement
 
 			foreach (GameObject eachItem in GameManager.GetInventoryComponent().m_Items)
 			{
-				GearItem gearItem = eachItem?.GetComponent<GearItem>();
-				if (gearItem == null || gearItem == excludeItem || !IsFuelContainer(gearItem)) continue;
+				GearItem? gearItem = eachItem?.GetComponent<GearItem>();
+				if (gearItem == null || gearItem == excludeItem || !IsFuelContainer(gearItem))
+				{
+					continue;
+				}
 
 				result += GetIndividualCapacityLiters(gearItem);
 			}
@@ -201,9 +206,10 @@ namespace BetterFuelManagement
 			foreach (GameObject eachItem in GameManager.GetInventoryComponent().m_Items)
 			{
 				GearItem gearItem = eachItem.GetComponent<GearItem>();
-				if (gearItem == null || gearItem == excludeItem || !IsFuelContainer(gearItem)) continue;
-
-				result += GetIndividualSpaceLiters(gearItem);
+				if (gearItem != null && gearItem != excludeItem && IsFuelContainer(gearItem))
+				{
+					result += GetIndividualSpaceLiters(gearItem);
+				}
 			}
 
 			return result;
@@ -215,8 +221,7 @@ namespace BetterFuelManagement
 		/// <returns>True if gearItem.m_LiquidItem is not null and is for kerosene.</returns>
 		internal static bool IsFuelContainer(GearItem gearItem)
 		{
-			if (gearItem?.m_LiquidItem is null) return false;
-			else return gearItem.m_LiquidItem.m_LiquidType == GearLiquidTypeEnum.Kerosene;
+			return gearItem?.m_LiquidItem != null && gearItem.m_LiquidItem.m_LiquidType == GearLiquidTypeEnum.Kerosene;
 		}
 
 		/// <summary>
@@ -234,7 +239,7 @@ namespace BetterFuelManagement
 		/// <returns>True if gearItem.m_KeroseneLampItem is not null.</returns>
 		internal static bool IsKeroseneLamp(GearItem gearItem)
 		{
-			return !(gearItem?.m_KeroseneLampItem is null);
+			return gearItem?.m_KeroseneLampItem != null;
 		}
 
 		internal static void Refuel(GearItem gearItem)

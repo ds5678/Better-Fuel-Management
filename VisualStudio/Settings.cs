@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace BetterFuelManagement
 {
-	internal class BetterFuelSettings : JsonModSettings
+	internal sealed class BetterFuelSettings : JsonModSettings
 	{
 		[Section("Gameplay Settings")]
 		[Name("Use Radial Menu")]

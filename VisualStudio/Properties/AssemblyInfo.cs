@@ -3,9 +3,6 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using BuildInfo = BetterFuelManagement.BuildInfo;
 
-[assembly: ComVisible(false)]
-[assembly: Guid("0e2e0e91-5442-4be8-aa92-c0d9d0af7e02")]
-
 [assembly: AssemblyTitle(BuildInfo.Name)]
 [assembly: AssemblyDescription(BuildInfo.Description)]
 [assembly: AssemblyCompany(BuildInfo.Company)]

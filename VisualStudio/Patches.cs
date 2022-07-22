@@ -1,4 +1,6 @@
-﻿using HarmonyLib;
+﻿extern alias Hinterland;
+using HarmonyLib;
+using Hinterland;
 using UnityEngine;
 
 namespace BetterFuelManagement
@@ -81,10 +83,12 @@ namespace BetterFuelManagement
 		private static bool Prefix(Panel_Inventory_Examine __instance)
 		{
 			//Implementation.Log("Panel_Inventory_Examine - OnUnload");
-			if (!FuelUtils.IsFuelItem(__instance.m_GearItem)) return true;
-
-			FuelUtils.Drain(__instance.m_GearItem);
-			return false;
+			if (FuelUtils.IsFuelItem(__instance.m_GearItem))
+			{
+				FuelUtils.Drain(__instance.m_GearItem);
+				return false;
+			}
+			return true;
 		}
 	}
 
@@ -186,7 +190,7 @@ namespace BetterFuelManagement
 
 
 
-	internal class DeductLiquidMethodTracker
+	internal static class DeductLiquidMethodTracker
 	{
 		internal static bool isExecuting = false;
 	}
