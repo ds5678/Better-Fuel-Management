@@ -6,6 +6,9 @@ namespace BetterFuelManagement;
 
 internal sealed class BetterFuelSettings : JsonModSettings
 {
+	internal static readonly BetterFuelSettings instance = new BetterFuelSettings();
+	internal static CustomRadialMenu? radialMenu;
+	
 	[Section("Gameplay Settings")]
 	[Name("Use Radial Menu")]
 	[Description("Enables a new radial menu for you to easily access your fuel containers.")]
@@ -50,38 +53,33 @@ internal sealed class BetterFuelSettings : JsonModSettings
 	{
 		if (field.Name == nameof(enableRadial))
 		{
-			Settings.SetFieldVisible((bool)newValue);
+			SetFieldsVisibility((bool)newValue);
 		}
 	}
 
 	protected override void OnConfirm()
 	{
 		base.OnConfirm();
-		Settings.radialMenu.SetValues(keyCode, enableRadial);
+		radialMenu!.SetValues(keyCode, enableRadial);
 	}
-}
 
-internal static class Settings
-{
-	internal static readonly BetterFuelSettings options = new BetterFuelSettings();
-	internal static CustomRadialMenu radialMenu;
-
-	public static void OnLoad()
+	private void SetFieldsVisibility(bool visible)
 	{
-		options.AddToModSettings("Better Fuel Management");
-		SetFieldVisible(options.enableRadial);
-		radialMenu = new CustomRadialMenu(options.keyCode, CustomRadialMenuType.AllOfEach, new string[] { "GEAR_JerrycanRusty", "GEAR_LampFuel", "GEAR_LampFuelFull" }, options.enableRadial);
-	}
-	internal static void SetFieldVisible(bool visible)
-	{
-		FieldInfo[] fields = options.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public);
+		FieldInfo[] fields = typeof(BetterFuelSettings).GetFields(BindingFlags.Instance | BindingFlags.Public);
 
 		for (int i = 0; i < fields.Length; ++i)
 		{
-			if (fields[i].Name == nameof(options.keyCode))
+			if (fields[i].Name == nameof(keyCode))
 			{
-				options.SetFieldVisible(fields[i], visible);
+				SetFieldVisible(fields[i], visible);
 			}
 		}
+	}
+
+	public static void OnLoad()
+	{
+		instance.AddToModSettings("Better Fuel Management");
+		instance.SetFieldsVisibility(instance.enableRadial);
+		radialMenu = new CustomRadialMenu(instance.keyCode, CustomRadialMenuType.AllOfEach, new string[] { "GEAR_JerrycanRusty", "GEAR_LampFuel", "GEAR_LampFuelFull" }, instance.enableRadial);
 	}
 }

@@ -2,12 +2,12 @@
 
 namespace BetterFuelManagement;
 
-internal class Implementation : MelonMod
+internal sealed class Implementation : MelonMod
 {
 	public override void OnApplicationStart()
 	{
 		Debug.Log($"[{Info.Name}] Version {Info.Version} loaded!");
-		Settings.OnLoad();
+		BetterFuelSettings.OnLoad();
 		SpawnProbabilities.AddToModComponent();
 	}
 
