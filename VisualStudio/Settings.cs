@@ -1,7 +1,6 @@
 ﻿using ModSettings;
 using RadialMenuUtilities;
 using System.Reflection;
-using UnityEngine;
 
 namespace BetterFuelManagement;
 

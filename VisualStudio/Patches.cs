@@ -1,7 +1,6 @@
 ﻿extern alias Hinterland;
 using HarmonyLib;
 using Hinterland;
-using UnityEngine;
 
 namespace BetterFuelManagement;
 

@@ -1,9 +1,8 @@
 ﻿using MelonLoader;
-using UnityEngine;
 
 namespace BetterFuelManagement;
 
-    internal class Implementation : MelonMod
+internal class Implementation : MelonMod
 {
 	public override void OnApplicationStart()
 	{

@@ -1,6 +1,5 @@
 ﻿using MelonLoader;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using BuildInfo = BetterFuelManagement.BuildInfo;
 
 [assembly: AssemblyTitle(BuildInfo.Name)]
