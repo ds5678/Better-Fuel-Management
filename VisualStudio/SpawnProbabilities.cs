@@ -1,5 +1,4 @@
 ﻿using GearSpawner;
-using System;
 
 namespace BetterFuelManagement;
 
@@ -7,7 +6,7 @@ internal static class SpawnProbabilities
 {
 	internal static void AddToModComponent()
 	{
-		SpawnTagManager.AddToTaggedFunctions("BetterFuelManagement", new Func<DifficultyLevel, FirearmAvailability, GearSpawnInfo, float>(GetProbability));
+		SpawnTagManager.AddFunction("BetterFuelManagement", GetProbability);
 	}
 	
 	private static float GetProbability(DifficultyLevel difficultyLevel, FirearmAvailability firearmAvailability, GearSpawnInfo gearSpawnInfo)
